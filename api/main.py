@@ -494,12 +494,12 @@ def spotify_card(data: dict[str, object]) -> str:
 
   <rect x="52" y="42" width="150" height="136" rx="20" fill="{PALETTE['bg']}" opacity="0.72"/>
   <circle cx="127" cy="89" r="34" fill="{PALETTE['gold']}" opacity="0.98"/>
-  <path d="M110 78c19-4 37-2 51 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
-  <path d="M114 90c15-2 27 0 38 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
-  <path d="M118 102c9-1 18 1 26 5" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M106 76c22-4 41-1 55 8" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M111 88c17-2 31 1 42 7" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M116 100c11-1 21 1 30 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
   <text x="127" y="142" text-anchor="middle" class="chip" fill="{PALETTE['text']}">SPOTIFY</text>
 
-  <text x="230" y="58" class="m" fill="{PALETTE['topaz']}">Static Spotify Profile</text>
+  <text x="230" y="58" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
   <text x="230" y="90" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
   <text x="230" y="118" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
   <text x="230" y="146" class="m" fill="{PALETTE['muted']}">{escape(str(data['album']))}</text>
@@ -507,13 +507,9 @@ def spotify_card(data: dict[str, object]) -> str:
   <rect x="230" y="162" width="160" height="24" rx="12" fill="{PALETTE['gold']}" opacity="0.95"/>
   <text x="310" y="178" text-anchor="middle" class="chip" fill="{PALETTE['bg']}">OPEN PROFILE</text>
 
-  <rect x="700" y="50" width="134" height="56" rx="16" fill="{PALETTE['bg']}" opacity="0.72"/>
+  <rect x="700" y="82" width="134" height="56" rx="16" fill="{PALETTE['bg']}" opacity="0.72"/>
   <text x="717" y="72" class="m" fill="{PALETTE['muted']}">Platform</text>
   <text x="717" y="94" class="k" fill="{PALETTE['text']}">Spotify</text>
-
-  <rect x="700" y="118" width="134" height="56" rx="16" fill="{PALETTE['bg']}" opacity="0.72"/>
-  <text x="717" y="140" class="m" fill="{PALETTE['muted']}">Card Type</text>
-  <text x="717" y="162" class="k" fill="{PALETTE['text']}">{escape(str(data['status']))}</text>
 </svg>"""
 
 
