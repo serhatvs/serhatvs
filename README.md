@@ -15,6 +15,8 @@ Building intelligent systems that connect:
 
 Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
+**Experience / Focus:** Edge AI, speech systems, multi-agent orchestration, embedded workflows.
+
 ---
 
 ## 🛠 Currently Building
