@@ -21,18 +21,20 @@ jobs:
         with:
           github_user_name: serhatvs
           outputs: |
-            dist/github-contribution-grid-snake-royal-imperial.svg
+            dist/snake.svg
 
       - name: Recolor snake (gold/purple)
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          path = Path("dist/github-contribution-grid-snake-royal-imperial.svg")
-          if not path.exists():
+          dist = Path("dist")
+          candidates = sorted(dist.glob("*.svg"))
+          if not candidates:
               raise SystemExit("snake svg was not generated")
 
-          content = path.read_text(encoding="utf-8")
+          source = next((path for path in candidates if path.name == "snake.svg"), candidates[0])
+          content = source.read_text(encoding="utf-8")
           replacements = {
               "#39d353": "#7A3F91",
               "#26a641": "#E6A520",
@@ -43,7 +45,8 @@ jobs:
           for source, target in replacements.items():
               content = content.replace(source, target)
 
-          path.write_text(content, encoding="utf-8")
+          target = dist / "github-contribution-grid-snake-royal-imperial.svg"
+          target.write_text(content, encoding="utf-8")
           PY
 
       - name: Deploy snake to output branch
