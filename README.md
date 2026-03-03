@@ -2,17 +2,6 @@
   <img src="assets/hero.svg" alt="hero" />
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Royal%20Amethyst-7A3F91?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Imperial%20Topaz-E6A520?style=for-the-badge&logoColor=black" />
-  <img src="https://img.shields.io/badge/Platinum%20Mist-F5F6F7?style=for-the-badge&logoColor=black" />
-</p>
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=serhatvs&label=Profile%20views" />
-  <img src="https://img.shields.io/github/followers/serhatvs?label=Followers&style=flat" />
-</p>
-
 ---
 
 ## 👑 About
