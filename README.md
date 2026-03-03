@@ -25,6 +25,8 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 - ESP32 edge-to-cloud systems for real-time sensing and control
 - Self-hosted developer tooling, live SVG cards, and profile automation
 
+**Open To:** internships, research collaborations, and engineering roles focused on AI systems, embedded software, and applied automation.
+
 ---
 
 ## 🧩 Core Stack
