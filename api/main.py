@@ -1,5 +1,6 @@
 import json
 import os
+from base64 import b64encode
 from datetime import date, datetime, timedelta, timezone
 from html import escape
 from urllib.error import HTTPError, URLError
@@ -12,6 +13,8 @@ from fastapi import FastAPI, Response
 app = FastAPI()
 
 GITHUB_API_BASE = "https://api.github.com"
+SPOTIFY_ACCOUNTS_BASE = "https://accounts.spotify.com"
+SPOTIFY_API_BASE = "https://api.spotify.com/v1"
 PALETTE = {
     "bg": "#2B0D3E",
     "card": "#2B2E33",
@@ -68,6 +71,25 @@ def github_get_absolute(url: str) -> tuple[dict | list, dict[str, str]]:
         payload = json.loads(response.read().decode("utf-8"))
         response_headers = dict(response.info().items())
         return payload, response_headers
+
+
+def http_json(
+    url: str,
+    *,
+    method: str = "GET",
+    headers: dict[str, str] | None = None,
+    data: bytes | None = None,
+) -> tuple[dict | list, dict[str, str], int]:
+    request = Request(url, headers=headers or {}, data=data, method=method)
+    with urlopen(request, timeout=10) as response:
+        raw_body = response.read()
+        payload: dict | list
+        if raw_body:
+            payload = json.loads(raw_body.decode("utf-8"))
+        else:
+            payload = {}
+        response_headers = dict(response.info().items())
+        return payload, response_headers, response.getcode()
 
 
 def fetch_repo_stats(user: str) -> dict[str, int | str]:
@@ -152,6 +174,78 @@ def fetch_public_events(user: str, pages: int = 3) -> list[dict]:
         if len(payload) < 100:
             break
     return events
+
+
+def spotify_env() -> tuple[str | None, str | None, str | None]:
+    return (
+        os.getenv("SPOTIFY_CLIENT_ID"),
+        os.getenv("SPOTIFY_CLIENT_SECRET"),
+        os.getenv("SPOTIFY_REFRESH_TOKEN"),
+    )
+
+
+def fetch_spotify_access_token() -> str:
+    client_id, client_secret, refresh_token = spotify_env()
+    if not client_id or not client_secret or not refresh_token:
+        raise ValueError("Missing Spotify credentials")
+
+    credentials = b64encode(f"{client_id}:{client_secret}".encode("utf-8")).decode("utf-8")
+    payload = urlencode(
+        {
+            "grant_type": "refresh_token",
+            "refresh_token": refresh_token,
+        }
+    ).encode("utf-8")
+    body, _, _ = http_json(
+        f"{SPOTIFY_ACCOUNTS_BASE}/api/token",
+        method="POST",
+        headers={
+            "Authorization": f"Basic {credentials}",
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data=payload,
+    )
+    if not isinstance(body, dict) or "access_token" not in body:
+        raise ValueError("Spotify access token not returned")
+    return str(body["access_token"])
+
+
+def fetch_spotify_now_playing() -> dict[str, object]:
+    access_token = fetch_spotify_access_token()
+    body, _, status = http_json(
+        f"{SPOTIFY_API_BASE}/me/player/currently-playing",
+        headers={"Authorization": f"Bearer {access_token}"},
+    )
+    if status == 204:
+        return {
+            "is_playing": False,
+            "title": "Nothing playing right now",
+            "artist": "Spotify standby",
+            "album": "Queue is quiet",
+            "url": "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy",
+            "progress_ms": 0,
+            "duration_ms": 1,
+            "status": "Spotify idle",
+        }
+    if not isinstance(body, dict):
+        raise ValueError("Invalid Spotify payload")
+
+    item = body.get("item") or {}
+    artists = item.get("artists") or []
+    artist_text = ", ".join(str(artist.get("name", "")) for artist in artists if artist.get("name")) or "Unknown artist"
+    album = (item.get("album") or {}).get("name", "Unknown album")
+    external_urls = item.get("external_urls") or {}
+
+    return {
+        "is_playing": bool(body.get("is_playing")),
+        "title": str(item.get("name", "Unknown track")),
+        "artist": artist_text,
+        "album": str(album),
+        "url": str(external_urls.get("spotify", "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy")),
+        "progress_ms": int(body.get("progress_ms") or 0),
+        "duration_ms": max(int(item.get("duration_ms") or 1), 1),
+        "status": "Live via Spotify API",
+    }
 
 
 def calculate_streaks(active_dates: list[date]) -> tuple[int, int]:
@@ -275,6 +369,26 @@ def load_streak_data(user: str) -> dict[str, object]:
         return fetch_streak_data(user)
     except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
         return default_streak_data()
+
+
+def default_spotify_data() -> dict[str, object]:
+    return {
+        "is_playing": False,
+        "title": "Spotify not configured",
+        "artist": "Add SPOTIFY_CLIENT_ID / SECRET / REFRESH_TOKEN",
+        "album": "Self-hosted card ready",
+        "url": "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy",
+        "progress_ms": 0,
+        "duration_ms": 1,
+        "status": "Fallback placeholder",
+    }
+
+
+def load_spotify_now_playing() -> dict[str, object]:
+    try:
+        return fetch_spotify_now_playing()
+    except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
+        return default_spotify_data()
 
 
 def svg_card(user: str, stats: dict[str, int | str]) -> str:
@@ -436,6 +550,53 @@ def streak_card(user: str, data: dict[str, object]) -> str:
 </svg>"""
 
 
+def spotify_card(data: dict[str, object]) -> str:
+    progress = min(max(int(data["progress_ms"]), 0), int(data["duration_ms"]))
+    duration = max(int(data["duration_ms"]), 1)
+    progress_width = 772 * (progress / duration)
+    playing_label = "Now Playing" if data["is_playing"] else "Spotify Status"
+
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="{PALETTE['bg']}"/>
+      <stop offset="55%" stop-color="{PALETTE['royal']}"/>
+      <stop offset="100%" stop-color="{PALETTE['gold']}"/>
+    </linearGradient>
+    <filter id="blur4" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feBlend in="SourceGraphic" in2="b" mode="screen"/>
+    </filter>
+    <style>
+      .h {{ font: 700 30px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .p {{ font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .m {{ font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .k {{ font: 700 16px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+    </style>
+  </defs>
+
+  <rect width="900" height="220" rx="22" fill="url(#g4)"/>
+  <g filter="url(#blur4)">
+    <rect x="22" y="22" width="856" height="176" rx="18" fill="{PALETTE['card']}" opacity="0.55"/>
+    <rect x="22" y="22" width="856" height="176" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.25"/>
+  </g>
+
+  <circle cx="78" cy="74" r="22" fill="{PALETTE['gold']}" opacity="0.95"/>
+  <rect x="72" y="63" width="7" height="22" rx="3.5" fill="{PALETTE['bg']}"/>
+  <path d="M86 63c10 1 16 8 16 18s-6 17-16 18" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
+
+  <text x="118" y="58" class="m" fill="{PALETTE['topaz']}">{playing_label}</text>
+  <text x="118" y="88" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
+  <text x="118" y="116" class="p" fill="{PALETTE['soft']}">{escape(str(data['artist']))}</text>
+  <text x="118" y="142" class="m" fill="{PALETTE['muted']}">Album: {escape(str(data['album']))}</text>
+
+  <rect x="64" y="166" width="772" height="10" rx="5" fill="{PALETTE['card']}" opacity="0.6"/>
+  <rect x="64" y="166" width="{progress_width:.2f}" height="10" rx="5" fill="{PALETTE['gold']}"/>
+  <text x="64" y="192" class="m" fill="{PALETTE['muted']}">Open track/profile on Spotify</text>
+  <text x="836" y="192" text-anchor="end" class="k" fill="{PALETTE['text']}">{escape(str(data['status']))}</text>
+</svg>"""
+
+
 @app.get("/api/stats")
 def stats(user: str = "serhatvs") -> Response:
     svg = svg_card(user, load_stats(user))
@@ -459,6 +620,17 @@ def top_langs(user: str = "serhatvs") -> Response:
 @app.get("/api/streak")
 def streak(user: str = "serhatvs") -> Response:
     svg = streak_card(user, load_streak_data(user))
+    return Response(
+        content=svg,
+        media_type="image/svg+xml",
+        headers={"Cache-Control": "public, max-age=1800"},
+    )
+
+
+@app.get("/api/spotify")
+def spotify() -> Response:
+    data = load_spotify_now_playing()
+    svg = spotify_card(data)
     return Response(
         content=svg,
         media_type="image/svg+xml",
