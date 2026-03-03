@@ -348,6 +348,8 @@ def default_featured_repo(repo: str) -> dict[str, str | int]:
         "description": "Pinned repository slot",
         "language": "Pinned",
         "stars": 0,
+        "branch": "main",
+        "pushed": "N/A",
         "html_url": "https://github.com/serhatvs?tab=repositories",
     }
 
@@ -359,9 +361,11 @@ def fetch_featured_repo(user: str, repo: str) -> dict[str, str | int]:
 
     return {
         "name": str(payload.get("name", repo)),
-        "description": str(payload.get("description") or "Project details coming soon."),
+        "description": str(payload.get("description") or "No description available."),
         "language": str(payload.get("language") or "Mixed"),
         "stars": int(payload.get("stargazers_count", 0)),
+        "branch": str(payload.get("default_branch") or "main"),
+        "pushed": format_github_date(payload.get("pushed_at")),
         "html_url": str(payload.get("html_url") or f"https://github.com/{user}/{repo}"),
     }
 
@@ -501,22 +505,20 @@ def featured_repo_card(user: str, repo: dict[str, str | int]) -> str:
 
   <text x="30" y="44" class="eyebrow" fill="{PALETTE['topaz']}">FEATURED REPO</text>
   <text x="30" y="72" class="title" fill="{PALETTE['text']}">{safe_name}</text>
-  <text x="30" y="168" class="meta" fill="{PALETTE['muted']}">{safe_user}/{safe_name}</text>
+  <text x="30" y="176" class="meta" fill="{PALETTE['muted']}">{safe_user}/{safe_name}</text>
   {description_svg}
 
-  <rect x="30" y="130" width="84" height="22" rx="11" fill="{PALETTE['bg']}" opacity="0.88"/>
-  <text x="72" y="145" text-anchor="middle" class="meta" fill="{PALETTE['topaz']}">{safe_language}</text>
+  <rect x="30" y="138" width="74" height="22" rx="11" fill="{PALETTE['bg']}" opacity="0.88"/>
+  <text x="67" y="153" text-anchor="middle" class="meta" fill="{PALETTE['topaz']}">{safe_language}</text>
 
-  <rect x="120" y="130" width="76" height="22" rx="11" fill="{PALETTE['bg']}" opacity="0.88"/>
-  <text x="158" y="145" text-anchor="middle" class="meta" fill="{PALETTE['text']}">{stars} stars</text>
+  <rect x="110" y="138" width="74" height="22" rx="11" fill="{PALETTE['bg']}" opacity="0.88"/>
+  <text x="147" y="153" text-anchor="middle" class="meta" fill="{PALETTE['text']}">{stars} stars</text>
 
-  <rect x="314" y="42" width="78" height="118" rx="22" fill="{PALETTE['bg']}" opacity="0.68"/>
-  <rect x="331" y="62" width="10" height="70" rx="5" fill="{PALETTE['royal']}" opacity="0.38"/>
-  <rect x="349" y="78" width="10" height="54" rx="5" fill="{PALETTE['soft']}" opacity="0.62"/>
-  <rect x="367" y="56" width="10" height="76" rx="5" fill="{PALETTE['gold']}" opacity="0.95"/>
-  <rect x="331" y="138" width="10" height="10" rx="5" fill="{PALETTE['topaz']}" opacity="0.95"/>
-  <rect x="349" y="138" width="10" height="10" rx="5" fill="{PALETTE['gold']}" opacity="0.95"/>
-  <rect x="367" y="138" width="10" height="10" rx="5" fill="{PALETTE['soft']}" opacity="0.78"/>
+  <rect x="290" y="30" width="108" height="150" rx="18" fill="{PALETTE['bg']}" opacity="0.78"/>
+  <rect x="304" y="48" width="12" height="94" rx="6" fill="{PALETTE['royal']}" opacity="0.32"/>
+  <rect x="326" y="70" width="12" height="72" rx="6" fill="{PALETTE['gold']}" opacity="0.95"/>
+  <rect x="348" y="58" width="12" height="84" rx="6" fill="{PALETTE['soft']}" opacity="0.54"/>
+  <rect x="370" y="86" width="12" height="56" rx="6" fill="{PALETTE['topaz']}" opacity="0.9"/>
 </svg>"""
 
 
