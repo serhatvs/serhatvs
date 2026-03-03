@@ -28,6 +28,26 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ---
 
+## 🚀 Featured Projects
+
+- [JARVIS](https://github.com/serhatvs/JARVIS)  
+  Multi-agent hybrid-planner personal AI assistant focused on code writing, system automation, reflection, memory, and voice-first control.  
+  `Python` `Multi-Agent` `Voice`
+
+- [Collective-MindGraph](https://github.com/serhatvs/Collective-MindGraph)  
+  Docker-first distributed reasoning monorepo built around MQTT events, Postgres-backed state, isolated Python agents, and a FastAPI dashboard.  
+  `Python` `Docker` `MQTT` `Postgres`
+
+- [CrowdPulse-city](https://github.com/serhatvs/CrowdPulse-city)  
+  Accessibility hazard reporting platform with an Express API, React/Vite map UI, contract layer, and risk heatmap indexing.  
+  `TypeScript` `React` `Express` `Web3`
+
+- [dsugar-farm](https://github.com/serhatvs/dsugar-farm)  
+  Sui Move dApp that combines smart contracts with a React TypeScript frontend for interactive farming gameplay.  
+  `Move` `TypeScript` `React` `Sui`
+
+---
+
 ## 📊 GitHub Intelligence (Backup cards)
 
 ![Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs&v=cards-clean-1)
