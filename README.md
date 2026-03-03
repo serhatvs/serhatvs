@@ -38,7 +38,7 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ![Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs)
 ![Top Langs](https://serhatvs.vercel.app/api/top-langs?user=serhatvs)
-![Streak](https://streak-stats.demolab.com?user=serhatvs&background=2B0D3E&ring=E6A520&fire=7A3F91&currStreakLabel=F5F6F7&sideLabels=F5F6F7&dates=F5F6F7&currStreakNum=F5F6F7&sideNums=F5F6F7)
+![Streak](https://serhatvs.vercel.app/api/streak?user=serhatvs)
 
 ---
 

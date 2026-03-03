@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from html import escape
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlparse
@@ -142,6 +142,78 @@ def fetch_top_languages(user: str) -> dict[str, object]:
     }
 
 
+def fetch_public_events(user: str, pages: int = 3) -> list[dict]:
+    events: list[dict] = []
+    for page in range(1, pages + 1):
+        payload, _ = github_get(f"/users/{user}/events/public", {"per_page": 100, "page": page})
+        if not isinstance(payload, list) or not payload:
+            break
+        events.extend(payload)
+        if len(payload) < 100:
+            break
+    return events
+
+
+def calculate_streaks(active_dates: list[date]) -> tuple[int, int]:
+    if not active_dates:
+        return 0, 0
+
+    ordered = sorted(set(active_dates))
+    longest = 1
+    current = 1
+    running = 1
+
+    for index in range(1, len(ordered)):
+        delta = (ordered[index] - ordered[index - 1]).days
+        if delta == 1:
+            running += 1
+            longest = max(longest, running)
+        else:
+            running = 1
+
+    latest = ordered[-1]
+    if latest not in {date.today(), date.today() - timedelta(days=1)}:
+        current = 0
+    else:
+        current = 1
+        cursor = latest
+        while (cursor - timedelta(days=1)) in ordered:
+            current += 1
+            cursor -= timedelta(days=1)
+
+    return current, longest
+
+
+def fetch_streak_data(user: str) -> dict[str, object]:
+    events = fetch_public_events(user)
+    active_dates = []
+    recent_counts: dict[date, int] = {}
+
+    for event in events:
+        created_at = event.get("created_at")
+        if not created_at:
+            continue
+        event_day = datetime.fromisoformat(str(created_at).replace("Z", "+00:00")).date()
+        active_dates.append(event_day)
+        recent_counts[event_day] = recent_counts.get(event_day, 0) + 1
+
+    current_streak, longest_streak = calculate_streaks(active_dates)
+    today = date.today()
+    window_days = [today - timedelta(days=13 - index) for index in range(14)]
+    sparkline = [(day.strftime("%d %b"), recent_counts.get(day, 0)) for day in window_days]
+
+    return {
+        "current_streak": current_streak,
+        "longest_streak": longest_streak,
+        "active_days": len(set(active_dates)),
+        "event_count": len(events),
+        "last_active": max(active_dates).isoformat() if active_dates else "N/A",
+        "sparkline": sparkline,
+        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "status": "Live via GitHub API" if os.getenv("GITHUB_TOKEN") else "Live via GitHub API (no token)",
+    }
+
+
 def default_stats() -> dict[str, int | str]:
     return {
         "stars": 0,
@@ -181,6 +253,28 @@ def load_top_languages(user: str) -> dict[str, object]:
         return data
     except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
         return default_top_languages()
+
+
+def default_streak_data() -> dict[str, object]:
+    today = date.today()
+    sparkline = [((today - timedelta(days=13 - index)).strftime("%d %b"), 0) for index in range(14)]
+    return {
+        "current_streak": 0,
+        "longest_streak": 0,
+        "active_days": 0,
+        "event_count": 0,
+        "last_active": "N/A",
+        "sparkline": sparkline,
+        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "status": "Fallback placeholder",
+    }
+
+
+def load_streak_data(user: str) -> dict[str, object]:
+    try:
+        return fetch_streak_data(user)
+    except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
+        return default_streak_data()
 
 
 def svg_card(user: str, stats: dict[str, int | str]) -> str:
@@ -276,6 +370,72 @@ def top_languages_card(user: str, data: dict[str, object]) -> str:
 </svg>"""
 
 
+def streak_card(user: str, data: dict[str, object]) -> str:
+    safe_user = escape(user)
+    sparkline = data["sparkline"]
+    max_count = max((count for _, count in sparkline), default=1) or 1
+    bars = []
+
+    for index, (label, count) in enumerate(sparkline):
+        height = 10 + ((count / max_count) * 44 if max_count else 0)
+        x = 44 + (index * 57)
+        y = 186 - height
+        fill = PALETTE["gold"] if count else PALETTE["soft"]
+        opacity = "0.95" if count else "0.3"
+        bars.append(
+            f'<rect x="{x}" y="{y:.2f}" width="28" height="{height:.2f}" rx="10" fill="{fill}" opacity="{opacity}"/>'
+            f'<text x="{x + 14}" y="204" text-anchor="middle" class="m" fill="{PALETTE["muted"]}">{label.split()[0]}</text>'
+        )
+
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="{PALETTE['bg']}"/>
+      <stop offset="55%" stop-color="{PALETTE['royal']}"/>
+      <stop offset="100%" stop-color="{PALETTE['gold']}"/>
+    </linearGradient>
+    <filter id="blur3" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feBlend in="SourceGraphic" in2="b" mode="screen"/>
+    </filter>
+    <style>
+      .h {{ font: 700 30px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .p {{ font: 600 16px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .m {{ font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .k {{ font: 700 22px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+    </style>
+  </defs>
+
+  <rect width="900" height="260" rx="22" fill="url(#g3)"/>
+  <g filter="url(#blur3)">
+    <rect x="22" y="22" width="856" height="216" rx="18" fill="{PALETTE['card']}" opacity="0.55"/>
+    <rect x="22" y="22" width="856" height="216" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.25"/>
+  </g>
+
+  <text x="44" y="58" class="h" fill="{PALETTE['text']}">{safe_user} - Activity Streak</text>
+  <text x="44" y="82" class="p" fill="{PALETTE['topaz']}">Recent public GitHub activity, matched to the same card system</text>
+
+  <text x="44" y="118" class="m" fill="{PALETTE['muted']}">Current</text>
+  <text x="44" y="144" class="k" fill="{PALETTE['text']}">{data['current_streak']} days</text>
+
+  <text x="218" y="118" class="m" fill="{PALETTE['muted']}">Longest</text>
+  <text x="218" y="144" class="k" fill="{PALETTE['text']}">{data['longest_streak']} days</text>
+
+  <text x="392" y="118" class="m" fill="{PALETTE['muted']}">Active Days</text>
+  <text x="392" y="144" class="k" fill="{PALETTE['text']}">{data['active_days']}</text>
+
+  <text x="566" y="118" class="m" fill="{PALETTE['muted']}">Events Window</text>
+  <text x="566" y="144" class="k" fill="{PALETTE['text']}">{data['event_count']}</text>
+
+  <text x="740" y="118" class="m" fill="{PALETTE['muted']}">Last Active</text>
+  <text x="740" y="144" class="k" fill="{PALETTE['text']}">{escape(str(data['last_active']))}</text>
+
+  <rect x="44" y="160" width="812" height="46" fill="{PALETTE['card']}" opacity="0.22" rx="14"/>
+  {''.join(bars)}
+  <text x="44" y="232" class="m" fill="{PALETTE['muted']}">Updated: {data['updated']} • {escape(str(data['status']))}</text>
+</svg>"""
+
+
 @app.get("/api/stats")
 def stats(user: str = "serhatvs") -> Response:
     svg = svg_card(user, load_stats(user))
@@ -289,6 +449,16 @@ def stats(user: str = "serhatvs") -> Response:
 @app.get("/api/top-langs")
 def top_langs(user: str = "serhatvs") -> Response:
     svg = top_languages_card(user, load_top_languages(user))
+    return Response(
+        content=svg,
+        media_type="image/svg+xml",
+        headers={"Cache-Control": "public, max-age=1800"},
+    )
+
+
+@app.get("/api/streak")
+def streak(user: str = "serhatvs") -> Response:
+    svg = streak_card(user, load_streak_data(user))
     return Response(
         content=svg,
         media_type="image/svg+xml",
