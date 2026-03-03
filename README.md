@@ -106,6 +106,8 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ## 🧠 System Architecture
 
+This flow maps how edge devices, speech interfaces, and task-specialized agents connect into a single decision pipeline.
+
 ```mermaid
 graph TD
 Edge[ESP32 Edge Nodes] --> STT[Speech Layer]
