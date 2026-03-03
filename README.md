@@ -49,8 +49,8 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ## 📊 GitHub Intelligence (Backup cards)
 
-![Stats](https://github-readme-stats.vercel.app/api?username=serhatvs&show_icons=true&rank_icon=github&bg_color=2B0D3E&title_color=7A3F91&icon_color=E6A520&text_color=F5F6F7)
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=serhatvs&layout=compact&bg_color=2B0D3E&title_color=7A3F91&text_color=F5F6F7)
+![Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs)
+![Top Langs](https://serhatvs.vercel.app/api/top-langs?user=serhatvs)
 ![Streak](https://streak-stats.demolab.com?user=serhatvs&background=2B0D3E&ring=E6A520&fire=7A3F91&currStreakLabel=F5F6F7)
 
 ---

@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timezone
 from html import escape
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 from fastapi import FastAPI, Response
@@ -95,6 +95,53 @@ def fetch_repo_stats(user: str) -> dict[str, int | str]:
     }
 
 
+def fetch_repos(user: str) -> list[dict]:
+    repos: list[dict] = []
+    next_url = f"{GITHUB_API_BASE}/users/{user}/repos?per_page=100&type=owner&sort=updated"
+
+    while next_url:
+        repos_payload, headers = github_get_absolute(next_url)
+        if not isinstance(repos_payload, list):
+            break
+        repos.extend(repos_payload)
+        next_url = parse_next_link(headers.get("Link"))
+
+    return repos
+
+
+def fetch_repo_languages(languages_url: str) -> dict[str, int]:
+    parsed = urlparse(languages_url)
+    payload, _ = github_get(parsed.path)
+    if not isinstance(payload, dict):
+        return {}
+    return {str(key): int(value) for key, value in payload.items()}
+
+
+def fetch_top_languages(user: str) -> dict[str, object]:
+    repos = fetch_repos(user)
+    totals: dict[str, int] = {}
+
+    for repo in repos:
+        if repo.get("fork"):
+            continue
+        languages_url = repo.get("languages_url")
+        if not languages_url:
+            continue
+
+        for language, size in fetch_repo_languages(str(languages_url)).items():
+            totals[language] = totals.get(language, 0) + size
+
+    total_bytes = sum(totals.values())
+    top_languages = sorted(totals.items(), key=lambda item: item[1], reverse=True)[:6]
+
+    return {
+        "languages": top_languages,
+        "total_bytes": total_bytes,
+        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "status": "Live via GitHub API" if os.getenv("GITHUB_TOKEN") else "Live via GitHub API (no token)",
+    }
+
+
 def default_stats() -> dict[str, int | str]:
     return {
         "stars": 0,
@@ -110,6 +157,30 @@ def load_stats(user: str) -> dict[str, int | str]:
         return fetch_repo_stats(user)
     except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
         return default_stats()
+
+
+def default_top_languages() -> dict[str, object]:
+    return {
+        "languages": [
+            ("Python", 60),
+            ("C++", 20),
+            ("JavaScript", 12),
+            ("Dockerfile", 8),
+        ],
+        "total_bytes": 100,
+        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "status": "Fallback placeholder",
+    }
+
+
+def load_top_languages(user: str) -> dict[str, object]:
+    try:
+        data = fetch_top_languages(user)
+        if not data["languages"]:
+            return default_top_languages()
+        return data
+    except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
+        return default_top_languages()
 
 
 def svg_card(user: str, stats: dict[str, int | str]) -> str:
@@ -144,9 +215,80 @@ def svg_card(user: str, stats: dict[str, int | str]) -> str:
 </svg>"""
 
 
+def top_languages_card(user: str, data: dict[str, object]) -> str:
+    safe_user = escape(user)
+    languages = data["languages"]
+    total_bytes = int(data["total_bytes"]) or 1
+    bar_colors = ["#7A3F91", "#E6A520", "#C59DD9", "#FFD77A", "#F5F6F7", "#C1C4C8"]
+
+    bar_widths = []
+    for _, size in languages:
+        percentage = max((int(size) / total_bytes) * 100, 2)
+        bar_widths.append(percentage)
+
+    bar_segments = []
+    offset = 0.0
+    for index, width in enumerate(bar_widths):
+        bar_segments.append(
+            f'<rect x="{44 + (812 * offset / 100):.2f}" y="86" width="{(812 * width / 100):.2f}" '
+            f'height="12" fill="{bar_colors[index % len(bar_colors)]}" rx="6"/>'
+        )
+        offset += width
+
+    labels = []
+    for index, (language, size) in enumerate(languages):
+        percentage = (int(size) / total_bytes) * 100
+        labels.append(
+            f'<text x="44" y="{132 + (index * 18)}" class="m" fill="{bar_colors[index % len(bar_colors)]}">'
+            f'{escape(language)}: {percentage:.1f}%</text>'
+        )
+
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="{PALETTE['bg']}"/>
+      <stop offset="55%" stop-color="{PALETTE['royal']}"/>
+      <stop offset="100%" stop-color="{PALETTE['gold']}"/>
+    </linearGradient>
+    <filter id="blur2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feBlend in="SourceGraphic" in2="b" mode="screen"/>
+    </filter>
+    <style>
+      .h {{ font: 700 30px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .p {{ font: 600 16px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .m {{ font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+    </style>
+  </defs>
+
+  <rect width="900" height="260" rx="22" fill="url(#g2)"/>
+  <g filter="url(#blur2)">
+    <rect x="22" y="22" width="856" height="216" rx="18" fill="{PALETTE['card']}" opacity="0.55"/>
+    <rect x="22" y="22" width="856" height="216" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.25"/>
+  </g>
+
+  <text x="44" y="60" class="h" fill="{PALETTE['text']}">{safe_user} - Top Languages</text>
+  <text x="44" y="80" class="p" fill="{PALETTE['topaz']}">Non-fork repositories aggregated via GitHub API</text>
+  <rect x="44" y="86" width="812" height="12" fill="{PALETTE['card']}" opacity="0.6" rx="6"/>
+  {''.join(bar_segments)}
+  {''.join(labels)}
+  <text x="44" y="232" class="m" fill="{PALETTE['muted']}">Updated: {data['updated']} • {escape(str(data['status']))}</text>
+</svg>"""
+
+
 @app.get("/api/stats")
 def stats(user: str = "serhatvs") -> Response:
     svg = svg_card(user, load_stats(user))
+    return Response(
+        content=svg,
+        media_type="image/svg+xml",
+        headers={"Cache-Control": "public, max-age=1800"},
+    )
+
+
+@app.get("/api/top-langs")
+def top_langs(user: str = "serhatvs") -> Response:
+    svg = top_languages_card(user, load_top_languages(user))
     return Response(
         content=svg,
         media_type="image/svg+xml",
