@@ -120,7 +120,18 @@ A3 --> Out
 
 ## 📫 Connect
 
-Available for collaboration, product builds, and technical discussions around edge AI, speech systems, and agent tooling.
+<p align="center">
+  <a href="https://www.linkedin.com/in/serhat-yavuz-70593b370/">
+    <img src="https://img.shields.io/badge/LinkedIn-Serhat%20Yavuz-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="https://x.com/Arkhino_DEV">
+    <img src="https://img.shields.io/badge/X-%40Arkhino_DEV-111111?style=for-the-badge&logo=x&logoColor=white" alt="X" />
+  </a>
+</p>
 
-- LinkedIn: [Serhat Yavuz](https://www.linkedin.com/in/serhat-yavuz-70593b370/)
-- X: [@Arkhino_DEV](https://x.com/Arkhino_DEV)
+<p align="center">
+  <a href="mailto:serhatyvz38@gmail.com">
+    <img src="https://img.shields.io/badge/Email-serhatyvz38%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+  <img src="https://img.shields.io/badge/Discord-bosadam-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
+</p>
