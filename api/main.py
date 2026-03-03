@@ -490,7 +490,7 @@ def spotify_card() -> str:
 
   <text x="228" y="80" class="h" fill="#F5F6F7">Arkhino_DEV</text>
   <text x="430" y="80" class="m" fill="#FFD77A">Spotify Profile</text>
-  <text x="228" y="110" class="p" fill="#C59DD9">Coding sessions, late-night builds, and synth-heavy focus loops</text>
+  <text x="228" y="110" class="p" fill="#C59DD9">Coding sessions and late-night builds</text>
   <text x="228" y="138" class="m" fill="#C1C4C8">Static profile card with a direct jump to the Spotify page</text>
 
   <rect x="228" y="152" width="196" height="30" rx="15" fill="#E6A520" opacity="0.96"/>

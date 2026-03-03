@@ -50,7 +50,7 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ## 🎧 Spotify
 
-[![Spotify](https://serhatvs.vercel.app/api/spotify?v=spotify-inline-title-3)](https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy)
+[![Spotify](https://serhatvs.vercel.app/api/spotify?v=spotify-inline-title-4)](https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy)
 
 ---
 
