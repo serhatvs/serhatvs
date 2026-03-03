@@ -120,18 +120,6 @@ A3 --> Out
 
 ## 📫 Connect
 
-<p align="center">
-  <a href="https://www.linkedin.com/in/serhat-yavuz-70593b370/">
-    <img src="https://img.shields.io/badge/LinkedIn-Open%20Profile-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
-  </a>
-  <a href="https://x.com/Arkhino_DEV">
-    <img src="https://img.shields.io/badge/X-Open%20Profile-111111?style=flat-square&logo=x&logoColor=white" alt="X" />
-  </a>
-  <a href="mailto:serhatyvz38@gmail.com">
-    <img src="https://img.shields.io/badge/Email-Send%20Mail-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email" />
-  </a>
-</p>
-
 <table>
   <tr>
     <td width="50%">
