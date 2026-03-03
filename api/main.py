@@ -488,19 +488,34 @@ def spotify_card() -> str:
   <path d="M114 113c10-2 20-1 28 3" fill="none" stroke="#2B0D3E" stroke-width="5.5" stroke-linecap="round"/>
   <text x="124" y="154" text-anchor="middle" class="chip" fill="#F5F6F7">SPOTIFY</text>
 
-  <text x="228" y="64" class="m" fill="#FFD77A">Spotify Profile</text>
-  <text x="228" y="98" class="h" fill="#F5F6F7">Arkhino DEV</text>
+  <text x="228" y="64" class="m" fill="#FFD77A">Profile Card</text>
+  <text x="228" y="98" class="h" fill="#F5F6F7">Arkhino_DEV Spotify Profile</text>
   <text x="228" y="128" class="p" fill="#C59DD9">Coding sessions, late-night builds, and synth-heavy focus loops</text>
   <text x="228" y="156" class="m" fill="#C1C4C8">Static profile card with a direct jump to the Spotify page</text>
 
   <rect x="228" y="170" width="196" height="30" rx="15" fill="#E6A520" opacity="0.96"/>
   <text x="326" y="189" text-anchor="middle" class="chip" fill="#2B0D3E">OPEN ON SPOTIFY</text>
 
-  <rect x="706" y="98" width="16" height="60" rx="8" fill="#C59DD9" opacity="0.55"/>
-  <rect x="734" y="82" width="16" height="76" rx="8" fill="#E6A520" opacity="0.95"/>
-  <rect x="762" y="110" width="16" height="48" rx="8" fill="#C59DD9" opacity="0.45"/>
-  <rect x="790" y="70" width="16" height="88" rx="8" fill="#E6A520" opacity="0.95"/>
-  <rect x="818" y="92" width="16" height="66" rx="8" fill="#C59DD9" opacity="0.55"/>
+  <rect x="706" y="98" width="16" height="60" rx="8" fill="#C59DD9" opacity="0.55">
+    <animate attributeName="y" values="98;116;90;98" dur="1.1s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="60;42;68;60" dur="1.1s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="734" y="82" width="16" height="76" rx="8" fill="#E6A520" opacity="0.95">
+    <animate attributeName="y" values="82;62;96;82" dur="0.85s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="76;96;62;76" dur="0.85s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="762" y="110" width="16" height="48" rx="8" fill="#C59DD9" opacity="0.45">
+    <animate attributeName="y" values="110;124;100;110" dur="1.3s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="48;34;58;48" dur="1.3s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="790" y="70" width="16" height="88" rx="8" fill="#E6A520" opacity="0.95">
+    <animate attributeName="y" values="70;94;58;70" dur="0.95s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="88;64;100;88" dur="0.95s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="818" y="92" width="16" height="66" rx="8" fill="#C59DD9" opacity="0.55">
+    <animate attributeName="y" values="92;108;80;92" dur="1.2s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="66;50;78;66" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
 </svg>"""
 
 
