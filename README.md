@@ -49,27 +49,35 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 <table>
   <tr>
-    <td width="50%">
+    <td align="center" width="50%">
       <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=JARVIS">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=JARVIS&v=featured-fixed-1" alt="JARVIS" />
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=JARVIS&v=featured-fixed-2" alt="JARVIS" />
       </a>
+      <br/>
+      <sub><a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=JARVIS&target=repo">Open Repo</a> • <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=JARVIS&target=docs">Docs</a></sub>
     </td>
-    <td width="50%">
+    <td align="center" width="50%">
       <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=Collective-MindGraph">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=Collective-MindGraph&v=featured-fixed-1" alt="Collective-MindGraph" />
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=Collective-MindGraph&v=featured-fixed-2" alt="Collective-MindGraph" />
       </a>
+      <br/>
+      <sub><a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=Collective-MindGraph&target=repo">Open Repo</a> • <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=Collective-MindGraph&target=docs">Docs</a></sub>
     </td>
   </tr>
   <tr>
-    <td width="50%">
+    <td align="center" width="50%">
       <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=dijital-g-zl-k">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=dijital-g-zl-k&v=featured-fixed-1" alt="dijital-g-zl-k" />
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=dijital-g-zl-k&v=featured-fixed-2" alt="dijital-g-zl-k" />
       </a>
+      <br/>
+      <sub><a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=dijital-g-zl-k&target=repo">Open Repo</a> • <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=dijital-g-zl-k&target=docs">Docs</a></sub>
     </td>
-    <td width="50%">
+    <td align="center" width="50%">
       <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=personal-site">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=personal-site&v=featured-fixed-1" alt="personal-site" />
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=personal-site&v=featured-fixed-2" alt="personal-site" />
       </a>
+      <br/>
+      <sub><a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=personal-site&target=repo">Open Repo</a> • <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=personal-site&target=docs">Docs</a></sub>
     </td>
   </tr>
 </table>
