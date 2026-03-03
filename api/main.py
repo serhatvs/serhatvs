@@ -494,9 +494,10 @@ def spotify_card(data: dict[str, object]) -> str:
 
   <rect x="52" y="42" width="150" height="136" rx="20" fill="{PALETTE['bg']}" opacity="0.72"/>
   <circle cx="127" cy="89" r="34" fill="{PALETTE['gold']}" opacity="0.98"/>
-  <path d="M106 76c22-4 41-1 55 8" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
-  <path d="M111 88c17-2 31 1 42 7" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
-  <path d="M116 100c11-1 21 1 30 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M102 80c18-5 39-3 52 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M108 91c14-3 29-1 40 5" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M114 102c10-2 20-1 28 4" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <rect x="92" y="69" width="9" height="34" rx="4.5" fill="{PALETTE['bg']}"/>
   <text x="127" y="142" text-anchor="middle" class="chip" fill="{PALETTE['text']}">SPOTIFY</text>
 
   <text x="230" y="58" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
@@ -507,9 +508,9 @@ def spotify_card(data: dict[str, object]) -> str:
   <rect x="230" y="162" width="160" height="24" rx="12" fill="{PALETTE['gold']}" opacity="0.95"/>
   <text x="310" y="178" text-anchor="middle" class="chip" fill="{PALETTE['bg']}">OPEN PROFILE</text>
 
-  <rect x="700" y="82" width="134" height="56" rx="16" fill="{PALETTE['bg']}" opacity="0.72"/>
-  <text x="717" y="72" class="m" fill="{PALETTE['muted']}">Platform</text>
-  <text x="717" y="94" class="k" fill="{PALETTE['text']}">Spotify</text>
+  <rect x="684" y="64" width="150" height="76" rx="18" fill="{PALETTE['bg']}" opacity="0.72"/>
+  <text x="702" y="92" class="m" fill="{PALETTE['muted']}">Platform</text>
+  <text x="702" y="118" class="k" fill="{PALETTE['text']}">Spotify</text>
 </svg>"""
 
 
