@@ -17,6 +17,8 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 **Experience / Focus:** Edge AI, speech systems, multi-agent orchestration, embedded workflows.
 
+**Pinned Achievement:** Building self-hosted GitHub profile systems with live SVG cards and automation.
+
 ---
 
 ## 🛠 Currently Building
