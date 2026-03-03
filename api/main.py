@@ -1,6 +1,5 @@
 import json
 import os
-from base64 import b64encode
 from datetime import date, datetime, timedelta, timezone
 from html import escape
 from urllib.error import HTTPError, URLError
@@ -13,8 +12,6 @@ from fastapi import FastAPI, Response
 app = FastAPI()
 
 GITHUB_API_BASE = "https://api.github.com"
-SPOTIFY_ACCOUNTS_BASE = "https://accounts.spotify.com"
-SPOTIFY_API_BASE = "https://api.spotify.com/v1"
 PALETTE = {
     "bg": "#2B0D3E",
     "card": "#2B2E33",
@@ -176,78 +173,6 @@ def fetch_public_events(user: str, pages: int = 3) -> list[dict]:
     return events
 
 
-def spotify_env() -> tuple[str | None, str | None, str | None]:
-    return (
-        os.getenv("SPOTIFY_CLIENT_ID"),
-        os.getenv("SPOTIFY_CLIENT_SECRET"),
-        os.getenv("SPOTIFY_REFRESH_TOKEN"),
-    )
-
-
-def fetch_spotify_access_token() -> str:
-    client_id, client_secret, refresh_token = spotify_env()
-    if not client_id or not client_secret or not refresh_token:
-        raise ValueError("Missing Spotify credentials")
-
-    credentials = b64encode(f"{client_id}:{client_secret}".encode("utf-8")).decode("utf-8")
-    payload = urlencode(
-        {
-            "grant_type": "refresh_token",
-            "refresh_token": refresh_token,
-        }
-    ).encode("utf-8")
-    body, _, _ = http_json(
-        f"{SPOTIFY_ACCOUNTS_BASE}/api/token",
-        method="POST",
-        headers={
-            "Authorization": f"Basic {credentials}",
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        data=payload,
-    )
-    if not isinstance(body, dict) or "access_token" not in body:
-        raise ValueError("Spotify access token not returned")
-    return str(body["access_token"])
-
-
-def fetch_spotify_now_playing() -> dict[str, object]:
-    access_token = fetch_spotify_access_token()
-    body, _, status = http_json(
-        f"{SPOTIFY_API_BASE}/me/player/currently-playing",
-        headers={"Authorization": f"Bearer {access_token}"},
-    )
-    if status == 204:
-        return {
-            "is_playing": False,
-            "title": "Nothing playing right now",
-            "artist": "Spotify standby",
-            "album": "Queue is quiet",
-            "url": "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy",
-            "progress_ms": 0,
-            "duration_ms": 1,
-            "status": "Spotify idle",
-        }
-    if not isinstance(body, dict):
-        raise ValueError("Invalid Spotify payload")
-
-    item = body.get("item") or {}
-    artists = item.get("artists") or []
-    artist_text = ", ".join(str(artist.get("name", "")) for artist in artists if artist.get("name")) or "Unknown artist"
-    album = (item.get("album") or {}).get("name", "Unknown album")
-    external_urls = item.get("external_urls") or {}
-
-    return {
-        "is_playing": bool(body.get("is_playing")),
-        "title": str(item.get("name", "Unknown track")),
-        "artist": artist_text,
-        "album": str(album),
-        "url": str(external_urls.get("spotify", "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy")),
-        "progress_ms": int(body.get("progress_ms") or 0),
-        "duration_ms": max(int(item.get("duration_ms") or 1), 1),
-        "status": "Live via Spotify API",
-    }
-
-
 def calculate_streaks(active_dates: list[date]) -> tuple[int, int]:
     if not active_dates:
         return 0, 0
@@ -371,24 +296,14 @@ def load_streak_data(user: str) -> dict[str, object]:
         return default_streak_data()
 
 
-def default_spotify_data() -> dict[str, object]:
+def static_spotify_data() -> dict[str, object]:
     return {
-        "is_playing": False,
-        "title": "Spotify not configured",
-        "artist": "Add SPOTIFY_CLIENT_ID / SECRET / REFRESH_TOKEN",
-        "album": "Self-hosted card ready",
+        "title": "Serhat on Spotify",
+        "subtitle": "Profile playlist lane",
+        "album": "Open the full profile",
         "url": "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy",
-        "progress_ms": 0,
-        "duration_ms": 1,
-        "status": "Fallback placeholder",
+        "status": "Static profile card",
     }
-
-
-def load_spotify_now_playing() -> dict[str, object]:
-    try:
-        return fetch_spotify_now_playing()
-    except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
-        return default_spotify_data()
 
 
 def svg_card(user: str, stats: dict[str, int | str]) -> str:
@@ -551,11 +466,6 @@ def streak_card(user: str, data: dict[str, object]) -> str:
 
 
 def spotify_card(data: dict[str, object]) -> str:
-    progress = min(max(int(data["progress_ms"]), 0), int(data["duration_ms"]))
-    duration = max(int(data["duration_ms"]), 1)
-    progress_width = 772 * (progress / duration)
-    playing_label = "Now Playing" if data["is_playing"] else "Spotify Status"
-
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220">
   <defs>
     <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
@@ -585,14 +495,14 @@ def spotify_card(data: dict[str, object]) -> str:
   <rect x="72" y="63" width="7" height="22" rx="3.5" fill="{PALETTE['bg']}"/>
   <path d="M86 63c10 1 16 8 16 18s-6 17-16 18" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
 
-  <text x="118" y="58" class="m" fill="{PALETTE['topaz']}">{playing_label}</text>
+  <text x="118" y="58" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
   <text x="118" y="88" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
-  <text x="118" y="116" class="p" fill="{PALETTE['soft']}">{escape(str(data['artist']))}</text>
+  <text x="118" y="116" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
   <text x="118" y="142" class="m" fill="{PALETTE['muted']}">Album: {escape(str(data['album']))}</text>
 
   <rect x="64" y="166" width="772" height="10" rx="5" fill="{PALETTE['card']}" opacity="0.6"/>
-  <rect x="64" y="166" width="{progress_width:.2f}" height="10" rx="5" fill="{PALETTE['gold']}"/>
-  <text x="64" y="192" class="m" fill="{PALETTE['muted']}">Open track/profile on Spotify</text>
+  <rect x="64" y="166" width="772" height="10" rx="5" fill="{PALETTE['gold']}"/>
+  <text x="64" y="192" class="m" fill="{PALETTE['muted']}">Open profile on Spotify</text>
   <text x="836" y="192" text-anchor="end" class="k" fill="{PALETTE['text']}">{escape(str(data['status']))}</text>
 </svg>"""
 
@@ -629,7 +539,7 @@ def streak(user: str = "serhatvs") -> Response:
 
 @app.get("/api/spotify")
 def spotify() -> Response:
-    data = load_spotify_now_playing()
+    data = static_spotify_data()
     svg = spotify_card(data)
     return Response(
         content=svg,
