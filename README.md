@@ -1,0 +1,94 @@
+<p align="center">
+  <img src="assets/hero.svg" alt="hero" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Royal%20Amethyst-7A3F91?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Imperial%20Topaz-E6A520?style=for-the-badge&logoColor=black" />
+  <img src="https://img.shields.io/badge/Platinum%20Mist-F5F6F7?style=for-the-badge&logoColor=black" />
+</p>
+
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=serhatvs&label=Profile%20views" />
+  <img src="https://img.shields.io/github/followers/serhatvs?label=Followers&style=flat" />
+</p>
+
+---
+
+## 👑 About
+
+Building intelligent systems that connect:
+
+- 🛰 Edge Devices (ESP32)
+- 🎙 Real-Time Speech Pipelines
+- 🧠 LLM Routing Cores
+- 🤖 Autonomous Agent Networks
+
+Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
+
+---
+
+## 🧩 Core Stack
+
+![Python](https://img.shields.io/badge/Python-7A3F91?logo=python&logoColor=white)
+![C++](https://img.shields.io/badge/C++-E6A520?logo=cplusplus&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-C59DD9?logo=node.js&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-2B2E33?logo=docker&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-7A4A00?logo=linux&logoColor=white)
+![ESP32](https://img.shields.io/badge/ESP32-2B0D3E?logo=espressif&logoColor=white)
+
+---
+
+## 🧪 Custom Stats (Self-hosted SVG)
+
+![Custom Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs)
+
+> Self-hosted on Vercel. Add `GITHUB_TOKEN` in Vercel or Render environment variables for live stars, repos, and followers.
+
+---
+
+## 📊 GitHub Intelligence (Backup cards)
+
+![Stats](https://github-readme-stats.vercel.app/api?username=serhatvs&show_icons=true&rank_icon=github&bg_color=2B0D3E&title_color=7A3F91&icon_color=E6A520&text_color=F5F6F7)
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=serhatvs&layout=compact&bg_color=2B0D3E&title_color=7A3F91&text_color=F5F6F7)
+![Streak](https://streak-stats.demolab.com?user=serhatvs&background=2B0D3E&ring=E6A520&fire=7A3F91&currStreakLabel=F5F6F7)
+
+---
+
+## 📈 Activity Network
+
+![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=serhatvs&bg_color=2B0D3E&color=F5F6F7&line=7A3F91&point=E6A520)
+
+---
+
+## 🎧 Now Playing
+
+[![Spotify](https://spotify-github-profile.kittinanx.com/api/view?uid=31dfdduerefgrltei75bsz5eogpy&cover_image=true&background_color=2B0D3E&bar_color=E6A520&bar_color_cover=true)](https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy)
+
+---
+
+## 🐍 Contribution Flow (Custom gold/purple)
+
+![Snake](https://raw.githubusercontent.com/serhatvs/serhatvs/output/github-contribution-grid-snake-royal-imperial.svg)
+
+---
+
+## 🧠 System Architecture
+
+```mermaid
+graph TD
+Edge[ESP32 Edge Nodes] --> STT[Speech Layer]
+STT --> Router[LLM Routing Core]
+Router --> A1[Task Agent]
+Router --> A2[Code Agent]
+Router --> A3[Decision Agent]
+A1 --> Out[Structured Output]
+A2 --> Out
+A3 --> Out
+```
+
+## 📫 Connect
+
+LinkedIn: (add)
+
+X: (add)
