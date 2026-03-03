@@ -296,16 +296,6 @@ def load_streak_data(user: str) -> dict[str, object]:
         return default_streak_data()
 
 
-def static_spotify_data() -> dict[str, object]:
-    return {
-        "title": "Arkhino DEV",
-        "subtitle": "Coding sessions, late-night builds, and synth-heavy focus loops",
-        "album": "Static profile card with a direct jump to the Spotify page",
-        "url": "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy",
-        "status": "Static profile card",
-    }
-
-
 def svg_card(user: str, stats: dict[str, int | str]) -> str:
     safe_user = escape(user)
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="900" height="180" viewBox="0 0 900 180">
@@ -465,52 +455,52 @@ def streak_card(user: str, data: dict[str, object]) -> str:
 </svg>"""
 
 
-def spotify_card(data: dict[str, object]) -> str:
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220">
+def spotify_card() -> str:
+    return """<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220">
   <defs>
     <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="{PALETTE['bg']}"/>
-      <stop offset="55%" stop-color="{PALETTE['royal']}"/>
-      <stop offset="100%" stop-color="{PALETTE['gold']}"/>
+      <stop offset="0%" stop-color="#2B0D3E"/>
+      <stop offset="55%" stop-color="#7A3F91"/>
+      <stop offset="100%" stop-color="#E6A520"/>
     </linearGradient>
     <filter id="blur4" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="10" result="b"/>
       <feBlend in="SourceGraphic" in2="b" mode="screen"/>
     </filter>
     <style>
-      .h {{ font: 700 30px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
-      .p {{ font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
-      .m {{ font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
-      .chip {{ font: 700 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: 1px; }}
+      .h { font: 700 30px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .p { font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .m { font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .chip { font: 700 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: 1px; }
     </style>
   </defs>
 
   <rect width="900" height="220" rx="22" fill="url(#g4)"/>
   <g filter="url(#blur4)">
-    <rect x="22" y="22" width="856" height="176" rx="18" fill="{PALETTE['card']}" opacity="0.55"/>
-    <rect x="22" y="22" width="856" height="176" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.25"/>
+    <rect x="22" y="22" width="856" height="176" rx="18" fill="#2B2E33" opacity="0.55"/>
+    <rect x="22" y="22" width="856" height="176" rx="18" fill="none" stroke="#C1C4C8" opacity="0.25"/>
   </g>
 
-  <rect x="54" y="48" width="140" height="124" rx="24" fill="{PALETTE['bg']}" opacity="0.82"/>
-  <circle cx="124" cy="103" r="38" fill="{PALETTE['gold']}" opacity="0.98"/>
-  <path d="M104 89c18-5 37-3 50 5" fill="none" stroke="{PALETTE['bg']}" stroke-width="5.5" stroke-linecap="round"/>
-  <path d="M109 101c14-3 29-2 40 4" fill="none" stroke="{PALETTE['bg']}" stroke-width="5.5" stroke-linecap="round"/>
-  <path d="M114 113c10-2 20-1 28 3" fill="none" stroke="{PALETTE['bg']}" stroke-width="5.5" stroke-linecap="round"/>
-  <text x="124" y="154" text-anchor="middle" class="chip" fill="{PALETTE['text']}">SPOTIFY</text>
+  <rect x="54" y="48" width="140" height="124" rx="24" fill="#2B0D3E" opacity="0.82"/>
+  <circle cx="124" cy="103" r="38" fill="#E6A520" opacity="0.98"/>
+  <path d="M104 89c18-5 37-3 50 5" fill="none" stroke="#2B0D3E" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M109 101c14-3 29-2 40 4" fill="none" stroke="#2B0D3E" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M114 113c10-2 20-1 28 3" fill="none" stroke="#2B0D3E" stroke-width="5.5" stroke-linecap="round"/>
+  <text x="124" y="154" text-anchor="middle" class="chip" fill="#F5F6F7">SPOTIFY</text>
 
-  <text x="228" y="64" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
-  <text x="228" y="98" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
-  <text x="228" y="128" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
-  <text x="228" y="156" class="m" fill="{PALETTE['muted']}">{escape(str(data['album']))}</text>
+  <text x="228" y="64" class="m" fill="#FFD77A">Spotify Profile</text>
+  <text x="228" y="98" class="h" fill="#F5F6F7">Arkhino DEV</text>
+  <text x="228" y="128" class="p" fill="#C59DD9">Coding sessions, late-night builds, and synth-heavy focus loops</text>
+  <text x="228" y="156" class="m" fill="#C1C4C8">Static profile card with a direct jump to the Spotify page</text>
 
-  <rect x="228" y="170" width="196" height="30" rx="15" fill="{PALETTE['gold']}" opacity="0.96"/>
-  <text x="326" y="189" text-anchor="middle" class="chip" fill="{PALETTE['bg']}">OPEN ON SPOTIFY</text>
+  <rect x="228" y="170" width="196" height="30" rx="15" fill="#E6A520" opacity="0.96"/>
+  <text x="326" y="189" text-anchor="middle" class="chip" fill="#2B0D3E">OPEN ON SPOTIFY</text>
 
-  <rect x="706" y="98" width="16" height="60" rx="8" fill="{PALETTE['soft']}" opacity="0.55"/>
-  <rect x="734" y="82" width="16" height="76" rx="8" fill="{PALETTE['gold']}" opacity="0.95"/>
-  <rect x="762" y="110" width="16" height="48" rx="8" fill="{PALETTE['soft']}" opacity="0.45"/>
-  <rect x="790" y="70" width="16" height="88" rx="8" fill="{PALETTE['gold']}" opacity="0.95"/>
-  <rect x="818" y="92" width="16" height="66" rx="8" fill="{PALETTE['soft']}" opacity="0.55"/>
+  <rect x="706" y="98" width="16" height="60" rx="8" fill="#C59DD9" opacity="0.55"/>
+  <rect x="734" y="82" width="16" height="76" rx="8" fill="#E6A520" opacity="0.95"/>
+  <rect x="762" y="110" width="16" height="48" rx="8" fill="#C59DD9" opacity="0.45"/>
+  <rect x="790" y="70" width="16" height="88" rx="8" fill="#E6A520" opacity="0.95"/>
+  <rect x="818" y="92" width="16" height="66" rx="8" fill="#C59DD9" opacity="0.55"/>
 </svg>"""
 
 
@@ -546,8 +536,7 @@ def streak(user: str = "serhatvs") -> Response:
 
 @app.get("/api/spotify")
 def spotify() -> Response:
-    data = static_spotify_data()
-    svg = spotify_card(data)
+    svg = spotify_card()
     return Response(
         content=svg,
         media_type="image/svg+xml",
