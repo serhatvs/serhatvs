@@ -21,6 +21,9 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ![Python](https://img.shields.io/badge/Python-7A3F91?logo=python&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-E6A520?logo=cplusplus&logoColor=black)
+![Java](https://img.shields.io/badge/Java-7A4A00?logo=openjdk&logoColor=white)
+![C](https://img.shields.io/badge/C-4B5EAA?logo=c&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-6A3FA0?logo=csharp&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-C59DD9?logo=node.js&logoColor=black)
 ![Docker](https://img.shields.io/badge/Docker-2B2E33?logo=docker&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-7A4A00?logo=linux&logoColor=white)
