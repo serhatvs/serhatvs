@@ -13,6 +13,7 @@ from fastapi.responses import RedirectResponse
 app = FastAPI()
 
 GITHUB_API_BASE = "https://api.github.com"
+GITHUB_GRAPHQL_URL = "https://api.github.com/graphql"
 PALETTE = {
     "bg": "#2B0D3E",
     "card": "#2B2E33",
@@ -23,25 +24,6 @@ PALETTE = {
     "soft": "#C59DD9",
     "topaz": "#FFD77A",
 }
-FEATURED_FALLBACKS = {
-    "JARVIS": {
-        "description": "Multi-agent hybrid-planner personal AI assistant for voice-first workflows and system automation.",
-        "language": "Python",
-    },
-    "Collective-MindGraph": {
-        "description": "Docker-first distributed reasoning monorepo built around MQTT events and agent orchestration.",
-        "language": "Python",
-    },
-    "CrowdPulse-city": {
-        "description": "Accessibility hazard reporting platform with a React map UI, API layer, and risk indexing flow.",
-        "language": "TypeScript",
-    },
-    "dsugar-farm": {
-        "description": "Sui Move dApp with a React frontend for interactive on-chain farming gameplay.",
-        "language": "TypeScript",
-    },
-}
-FEATURED_FALLBACK_ORDER = ["JARVIS", "Collective-MindGraph", "CrowdPulse-city", "dsugar-farm"]
 
 
 def github_headers() -> dict[str, str]:
@@ -107,6 +89,29 @@ def http_json(
             payload = {}
         response_headers = dict(response.info().items())
         return payload, response_headers, response.getcode()
+
+
+def github_graphql(query: str, variables: dict[str, object]) -> dict:
+    token = os.getenv("GITHUB_TOKEN")
+    if not token:
+        raise ValueError("GITHUB_TOKEN is required for GitHub GraphQL")
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.github+json",
+        "User-Agent": "serhatvs-profile-stats",
+    }
+    body = json.dumps({"query": query, "variables": variables}).encode("utf-8")
+    payload, _, _ = http_json(GITHUB_GRAPHQL_URL, method="POST", headers=headers, data=body)
+    if not isinstance(payload, dict):
+        raise ValueError("Invalid GraphQL payload")
+    if payload.get("errors"):
+        raise ValueError("GitHub GraphQL returned errors")
+    data = payload.get("data")
+    if not isinstance(data, dict):
+        raise ValueError("GitHub GraphQL returned no data")
+    return data
 
 
 def fetch_repo_stats(user: str) -> dict[str, int | str]:
@@ -361,15 +366,14 @@ def wrap_svg_text(text: str, max_chars: int = 44, max_lines: int = 2) -> list[st
 
 
 def default_featured_repo(repo: str) -> dict[str, str | int]:
-    fallback = FEATURED_FALLBACKS.get(repo, {})
     return {
         "name": repo,
-        "description": fallback.get("description", "Featured project"),
-        "language": fallback.get("language", "Mixed"),
+        "description": "Pinned repository slot",
+        "language": "Pinned",
         "stars": 0,
         "branch": "main",
         "pushed": "N/A",
-        "html_url": f"https://github.com/serhatvs/{repo}",
+        "html_url": "https://github.com/serhatvs?tab=repositories",
     }
 
 
@@ -396,60 +400,79 @@ def load_featured_repo(user: str, repo: str) -> dict[str, str | int]:
         return default_featured_repo(repo)
 
 
-def featured_repo_summary(repo: dict) -> dict[str, str | int]:
-    name = str(repo.get("name") or "project")
-    fallback = FEATURED_FALLBACKS.get(name, {})
-    return {
-        "name": name,
-        "description": str(repo.get("description") or fallback.get("description") or "Featured project"),
-        "language": str(repo.get("language") or fallback.get("language") or "Mixed"),
-        "stars": int(repo.get("stargazers_count", 0)),
-        "branch": str(repo.get("default_branch") or "main"),
-        "pushed": format_github_date(repo.get("pushed_at")),
-        "html_url": str(repo.get("html_url") or f"https://github.com/serhatvs/{name}"),
+def placeholder_featured_repos(count: int = 4) -> list[dict[str, str | int]]:
+    return [default_featured_repo(f"Pinned Slot {index + 1}") for index in range(count)]
+
+
+def fetch_pinned_featured_repos(user: str, count: int = 4) -> list[dict[str, str | int]]:
+    query = """
+    query($login: String!, $count: Int!) {
+      user(login: $login) {
+        pinnedItems(first: $count, types: [REPOSITORY]) {
+          nodes {
+            ... on Repository {
+              name
+              description
+              stargazerCount
+              pushedAt
+              url
+              primaryLanguage {
+                name
+              }
+              defaultBranchRef {
+                name
+              }
+            }
+          }
+        }
+      }
     }
+    """
+    data = github_graphql(query, {"login": user, "count": count})
+    user_data = data.get("user")
+    if not isinstance(user_data, dict):
+        raise ValueError("Pinned items user payload missing")
+
+    pinned_items = user_data.get("pinnedItems")
+    if not isinstance(pinned_items, dict):
+        raise ValueError("Pinned items payload missing")
+
+    nodes = pinned_items.get("nodes")
+    if not isinstance(nodes, list):
+        raise ValueError("Pinned item nodes missing")
+
+    repos: list[dict[str, str | int]] = []
+    for node in nodes:
+        if not isinstance(node, dict):
+            continue
+        repos.append(
+            {
+                "name": str(node.get("name") or "Pinned Repository"),
+                "description": str(node.get("description") or "Pinned repository"),
+                "language": str((node.get("primaryLanguage") or {}).get("name") or "Mixed"),
+                "stars": int(node.get("stargazerCount", 0)),
+                "branch": str((node.get("defaultBranchRef") or {}).get("name") or "main"),
+                "pushed": format_github_date(node.get("pushedAt")),
+                "html_url": str(node.get("url") or f"https://github.com/{user}"),
+            }
+        )
+    return repos
 
 
-def rank_featured_repos(user: str, count: int = 4) -> list[dict[str, str | int]]:
-    repos = fetch_repos(user)
-    candidates = [
-        repo
-        for repo in repos
-        if not repo.get("fork")
-        and not repo.get("archived")
-        and not repo.get("disabled")
-        and str(repo.get("name")) != user
-    ]
-    ranked = sorted(
-        candidates,
-        key=lambda repo: (
-            int(repo.get("stargazers_count", 0)),
-            str(repo.get("pushed_at") or ""),
-            int(repo.get("size", 0)),
-        ),
-        reverse=True,
-    )
-    return [featured_repo_summary(repo) for repo in ranked[:count]]
-
-
-def fallback_featured_repos(count: int = 4) -> list[dict[str, str | int]]:
-    return [default_featured_repo(name) for name in FEATURED_FALLBACK_ORDER[:count]]
-
-
-def load_ranked_featured_repos(user: str, count: int = 4) -> list[dict[str, str | int]]:
+def load_pinned_featured_repos(user: str, count: int = 4) -> list[dict[str, str | int]]:
     try:
-        featured = rank_featured_repos(user, count)
+        featured = fetch_pinned_featured_repos(user, count)
         if featured:
             return featured
     except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
         pass
-    return fallback_featured_repos(count)
+    return placeholder_featured_repos(count)
 
 
 def featured_repo_for_request(user: str, repo: str | None, slot: int) -> dict[str, str | int]:
     if repo:
         return load_featured_repo(user, repo)
-    featured = load_ranked_featured_repos(user)
+    featured = load_pinned_featured_repos(user)
     safe_slot = min(max(slot, 0), len(featured) - 1)
     return featured[safe_slot]
 
