@@ -343,7 +343,6 @@ def wrap_svg_text(text: str, max_chars: int = 44, max_lines: int = 2) -> list[st
 
 
 def default_featured_repo(repo: str) -> dict[str, str | int]:
-    html_url = "https://github.com/serhatvs?tab=repositories"
     return {
         "name": repo,
         "description": "Pinned repository slot",
@@ -351,9 +350,7 @@ def default_featured_repo(repo: str) -> dict[str, str | int]:
         "stars": 0,
         "branch": "main",
         "pushed": "N/A",
-        "html_url": html_url,
-        "homepage": "",
-        "docs_url": html_url,
+        "html_url": "https://github.com/serhatvs?tab=repositories",
     }
 
 
@@ -370,8 +367,6 @@ def fetch_featured_repo(user: str, repo: str) -> dict[str, str | int]:
         "branch": str(payload.get("default_branch") or "main"),
         "pushed": format_github_date(payload.get("pushed_at")),
         "html_url": str(payload.get("html_url") or f"https://github.com/{user}/{repo}"),
-        "homepage": str(payload.get("homepage") or ""),
-        "docs_url": f"{payload.get('html_url') or f'https://github.com/{user}/{repo}'}#readme",
     }
 
 
@@ -479,32 +474,11 @@ def featured_repo_card(user: str, repo: dict[str, str | int]) -> str:
     safe_pushed = escape(str(repo["pushed"]))
     safe_lines = [escape(line) for line in description_lines]
     stars = compact_number(int(repo["stars"]))
-    show_demo = bool(str(repo.get("homepage") or "").strip())
-    show_docs = bool(str(repo.get("docs_url") or "").strip())
 
     description_svg = "".join(
         f'<text x="30" y="{94 + (index * 18)}" class="body" fill="{PALETTE["soft"]}">{line}</text>'
         for index, line in enumerate(safe_lines)
     )
-    cta_x = 30
-    cta_segments = [
-        (
-            f'<rect x="{cta_x}" y="132" width="88" height="22" rx="11" fill="{PALETTE["gold"]}" opacity="0.96"/>'
-            f'<text x="{cta_x + 44}" y="147" text-anchor="middle" class="meta" fill="{PALETTE["bg"]}">OPEN REPO</text>'
-        )
-    ]
-    cta_x += 96
-    if show_demo:
-        cta_segments.append(
-            f'<rect x="{cta_x}" y="132" width="86" height="22" rx="11" fill="{PALETTE["bg"]}" opacity="0.88"/>'
-            f'<text x="{cta_x + 43}" y="147" text-anchor="middle" class="meta" fill="{PALETTE["topaz"]}">LIVE DEMO</text>'
-        )
-        cta_x += 94
-    if show_docs:
-        cta_segments.append(
-            f'<rect x="{cta_x}" y="132" width="64" height="22" rx="11" fill="{PALETTE["bg"]}" opacity="0.88"/>'
-            f'<text x="{cta_x + 32}" y="147" text-anchor="middle" class="meta" fill="{PALETTE["text"]}">DOCS</text>'
-        )
 
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="430" height="210" viewBox="0 0 430 210">
   <defs>
@@ -535,9 +509,8 @@ def featured_repo_card(user: str, repo: dict[str, str | int]) -> str:
 
   <text x="30" y="44" class="eyebrow" fill="{PALETTE['topaz']}">FEATURED REPO</text>
   <text x="30" y="72" class="title" fill="{PALETTE['text']}">{safe_name}</text>
-  {description_svg}
-  {''.join(cta_segments)}
   <text x="30" y="162" class="meta" fill="{PALETTE['muted']}">{safe_user}/{safe_name}</text>
+  {description_svg}
 
   <rect x="30" y="174" width="74" height="22" rx="11" fill="{PALETTE['bg']}" opacity="0.88"/>
   <text x="67" y="189" text-anchor="middle" class="meta" fill="{PALETTE['topaz']}">{safe_language}</text>
@@ -796,17 +769,6 @@ def repo_card(user: str = "serhatvs", repo: str | None = None, slot: int = 0) ->
 
 
 @app.get("/api/repo-link")
-def repo_link(
-    user: str = "serhatvs",
-    repo: str | None = None,
-    slot: int = 0,
-    target: str = "repo",
-) -> RedirectResponse:
+def repo_link(user: str = "serhatvs", repo: str | None = None, slot: int = 0) -> RedirectResponse:
     featured = featured_repo_for_request(user, repo, slot)
-    if target == "docs":
-        destination = str(featured.get("docs_url") or featured["html_url"])
-    elif target == "demo":
-        destination = str(featured.get("homepage") or featured["html_url"])
-    else:
-        destination = str(featured["html_url"])
-    return RedirectResponse(url=destination, status_code=307)
+    return RedirectResponse(url=str(featured["html_url"]), status_code=307)
