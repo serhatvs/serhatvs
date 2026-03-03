@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from datetime import date, datetime, timedelta, timezone
 from html import escape
 from urllib.error import HTTPError, URLError
@@ -13,7 +14,6 @@ from fastapi.responses import RedirectResponse
 app = FastAPI()
 
 GITHUB_API_BASE = "https://api.github.com"
-GITHUB_GRAPHQL_URL = "https://api.github.com/graphql"
 PALETTE = {
     "bg": "#2B0D3E",
     "card": "#2B2E33",
@@ -89,29 +89,6 @@ def http_json(
             payload = {}
         response_headers = dict(response.info().items())
         return payload, response_headers, response.getcode()
-
-
-def github_graphql(query: str, variables: dict[str, object]) -> dict:
-    token = os.getenv("GITHUB_TOKEN")
-    if not token:
-        raise ValueError("GITHUB_TOKEN is required for GitHub GraphQL")
-
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json",
-        "Accept": "application/vnd.github+json",
-        "User-Agent": "serhatvs-profile-stats",
-    }
-    body = json.dumps({"query": query, "variables": variables}).encode("utf-8")
-    payload, _, _ = http_json(GITHUB_GRAPHQL_URL, method="POST", headers=headers, data=body)
-    if not isinstance(payload, dict):
-        raise ValueError("Invalid GraphQL payload")
-    if payload.get("errors"):
-        raise ValueError("GitHub GraphQL returned errors")
-    data = payload.get("data")
-    if not isinstance(data, dict):
-        raise ValueError("GitHub GraphQL returned no data")
-    return data
 
 
 def fetch_repo_stats(user: str) -> dict[str, int | str]:
@@ -404,58 +381,38 @@ def placeholder_featured_repos(count: int = 4) -> list[dict[str, str | int]]:
     return [default_featured_repo(f"Pinned Slot {index + 1}") for index in range(count)]
 
 
-def fetch_pinned_featured_repos(user: str, count: int = 4) -> list[dict[str, str | int]]:
-    query = """
-    query($login: String!, $count: Int!) {
-      user(login: $login) {
-        pinnedItems(first: $count, types: [REPOSITORY]) {
-          nodes {
-            ... on Repository {
-              name
-              description
-              stargazerCount
-              pushedAt
-              url
-              primaryLanguage {
-                name
-              }
-              defaultBranchRef {
-                name
-              }
-            }
-          }
-        }
-      }
-    }
-    """
-    data = github_graphql(query, {"login": user, "count": count})
-    user_data = data.get("user")
-    if not isinstance(user_data, dict):
-        raise ValueError("Pinned items user payload missing")
+def fetch_profile_html(user: str) -> str:
+    request = Request(
+        f"https://github.com/{user}",
+        headers={
+            "User-Agent": "serhatvs-profile-stats",
+            "Accept": "text/html,application/xhtml+xml",
+        },
+    )
+    with urlopen(request, timeout=10) as response:
+        return response.read().decode("utf-8")
 
-    pinned_items = user_data.get("pinnedItems")
-    if not isinstance(pinned_items, dict):
-        raise ValueError("Pinned items payload missing")
 
-    nodes = pinned_items.get("nodes")
-    if not isinstance(nodes, list):
-        raise ValueError("Pinned item nodes missing")
-
-    repos: list[dict[str, str | int]] = []
-    for node in nodes:
-        if not isinstance(node, dict):
+def parse_pinned_repo_names(user: str, html: str, count: int = 4) -> list[str]:
+    pattern = re.compile(
+        rf'<div\s+class="Box pinned-item-list-item[^"]*".*?<a [^>]*href="/{re.escape(user)}/([^"/?#]+)"',
+        re.DOTALL,
+    )
+    names: list[str] = []
+    for match in pattern.finditer(html):
+        repo_name = match.group(1)
+        if repo_name == user or repo_name in names:
             continue
-        repos.append(
-            {
-                "name": str(node.get("name") or "Pinned Repository"),
-                "description": str(node.get("description") or "Pinned repository"),
-                "language": str((node.get("primaryLanguage") or {}).get("name") or "Mixed"),
-                "stars": int(node.get("stargazerCount", 0)),
-                "branch": str((node.get("defaultBranchRef") or {}).get("name") or "main"),
-                "pushed": format_github_date(node.get("pushedAt")),
-                "html_url": str(node.get("url") or f"https://github.com/{user}"),
-            }
-        )
+        names.append(repo_name)
+        if len(names) >= count:
+            break
+    return names
+
+
+def fetch_pinned_featured_repos(user: str, count: int = 4) -> list[dict[str, str | int]]:
+    html = fetch_profile_html(user)
+    pinned_names = parse_pinned_repo_names(user, html, count)
+    repos = [fetch_featured_repo(user, repo_name) for repo_name in pinned_names]
     return repos
 
 
