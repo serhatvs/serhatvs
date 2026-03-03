@@ -28,17 +28,11 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ---
 
-## 🧪 Custom Stats (Self-hosted SVG)
-
-![Custom Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs)
-
----
-
 ## 📊 GitHub Intelligence (Backup cards)
 
-![Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs)
-![Top Langs](https://serhatvs.vercel.app/api/top-langs?user=serhatvs)
-![Streak](https://serhatvs.vercel.app/api/streak?user=serhatvs)
+![Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs&v=cards-clean-1)
+![Top Langs](https://serhatvs.vercel.app/api/top-langs?user=serhatvs&v=cards-clean-1)
+![Streak](https://serhatvs.vercel.app/api/streak?user=serhatvs&v=cards-clean-1)
 
 ---
 

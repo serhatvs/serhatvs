@@ -324,7 +324,6 @@ def svg_card(user: str, stats: dict[str, int | str]) -> str:
 
   <text x="44" y="72" class="h" fill="{PALETTE['text']}">{safe_user} - Custom Stats</text>
   <text x="44" y="104" class="p" fill="{PALETTE['topaz']}">Stars: {stats['stars']}   •   Repos: {stats['repos']}   •   Followers: {stats['followers']}</text>
-  <text x="44" y="132" class="m" fill="{PALETTE['muted']}">Updated: {stats['updated']} • {escape(str(stats['status']))}</text>
 </svg>"""
 
 
@@ -385,7 +384,6 @@ def top_languages_card(user: str, data: dict[str, object]) -> str:
   <rect x="44" y="86" width="812" height="12" fill="{PALETTE['card']}" opacity="0.6" rx="6"/>
   {''.join(bar_segments)}
   {''.join(labels)}
-  <text x="44" y="232" class="m" fill="{PALETTE['muted']}">Updated: {data['updated']} • {escape(str(data['status']))}</text>
 </svg>"""
 
 
@@ -451,7 +449,6 @@ def streak_card(user: str, data: dict[str, object]) -> str:
 
   <rect x="44" y="160" width="812" height="46" fill="{PALETTE['card']}" opacity="0.22" rx="14"/>
   {''.join(bars)}
-  <text x="44" y="232" class="m" fill="{PALETTE['muted']}">Updated: {data['updated']} • {escape(str(data['status']))}</text>
 </svg>"""
 
 
