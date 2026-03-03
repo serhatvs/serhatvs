@@ -769,6 +769,77 @@ def contact_card() -> str:
 </svg>"""
 
 
+CONTACT_ITEMS = {
+    "linkedin": {
+        "label": "LinkedIn",
+        "value": "Serhat Yavuz",
+        "accent": "#0A66C2",
+        "glyph": "in",
+    },
+    "x": {
+        "label": "X",
+        "value": "@Arkhino_DEV",
+        "accent": "#111111",
+        "glyph": "X",
+    },
+    "email": {
+        "label": "Email",
+        "value": "serhatyvz38@gmail.com",
+        "accent": "#EA4335",
+        "glyph": "@",
+    },
+    "discord": {
+        "label": "Discord",
+        "value": "bosadam",
+        "accent": "#5865F2",
+        "glyph": "D",
+    },
+}
+
+
+def contact_tile_card(channel: str) -> str:
+    item = CONTACT_ITEMS.get(channel, CONTACT_ITEMS["linkedin"])
+    safe_label = escape(item["label"])
+    safe_value = escape(item["value"])
+    safe_glyph = escape(item["glyph"])
+    accent = item["accent"]
+
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="430" height="108" viewBox="0 0 430 108">
+  <defs>
+    <linearGradient id="contactTile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="{PALETTE['bg']}"/>
+      <stop offset="55%" stop-color="{PALETTE['royal']}"/>
+      <stop offset="100%" stop-color="{PALETTE['gold']}"/>
+    </linearGradient>
+    <filter id="contactTileBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feBlend in="SourceGraphic" in2="b" mode="screen"/>
+    </filter>
+    <style>
+      .label {{ font: 500 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .value {{ font: 700 22px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .chip {{ font: 700 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: .8px; }}
+    </style>
+  </defs>
+
+  <rect width="430" height="108" rx="22" fill="url(#contactTile)"/>
+  <g filter="url(#contactTileBlur)">
+    <rect x="16" y="16" width="398" height="76" rx="18" fill="{PALETTE['card']}" opacity="0.58"/>
+    <rect x="16" y="16" width="398" height="76" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.24"/>
+  </g>
+
+  <circle cx="52" cy="54" r="19" fill="{accent}"/>
+  <text x="52" y="59" text-anchor="middle" class="chip" fill="{PALETTE['text']}">{safe_glyph}</text>
+
+  <text x="82" y="44" class="label" fill="{PALETTE['muted']}">{safe_label}</text>
+  <text x="82" y="67" class="value" fill="{PALETTE['text']}">{safe_value}</text>
+
+  <rect x="352" y="32" width="10" height="32" rx="5" fill="{PALETTE['soft']}" opacity="0.55"/>
+  <rect x="370" y="24" width="10" height="40" rx="5" fill="{PALETTE['gold']}" opacity="0.95"/>
+  <rect x="388" y="39" width="10" height="25" rx="5" fill="{PALETTE['topaz']}" opacity="0.9"/>
+</svg>"""
+
+
 @app.get("/api/stats")
 def stats(user: str = "serhatvs") -> Response:
     svg = svg_card(user, load_stats(user))
@@ -812,6 +883,16 @@ def spotify() -> Response:
 @app.get("/api/contact")
 def contact() -> Response:
     svg = contact_card()
+    return Response(
+        content=svg,
+        media_type="image/svg+xml",
+        headers={"Cache-Control": "public, max-age=1800"},
+    )
+
+
+@app.get("/api/contact-card")
+def contact_tile(channel: str = "linkedin") -> Response:
+    svg = contact_tile_card(channel)
     return Response(
         content=svg,
         media_type="image/svg+xml",

@@ -122,15 +122,37 @@ A3 --> Out
 
 <p align="center">
   <a href="https://www.linkedin.com/in/serhat-yavuz-70593b370/">
-    <img src="https://img.shields.io/badge/LinkedIn-Serhat%20Yavuz-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
+    <img src="https://img.shields.io/badge/LinkedIn-Open%20Profile-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
   <a href="https://x.com/Arkhino_DEV">
-    <img src="https://img.shields.io/badge/X-%40Arkhino_DEV-111111?style=flat-square&logo=x&logoColor=white" alt="X" />
+    <img src="https://img.shields.io/badge/X-Open%20Profile-111111?style=flat-square&logo=x&logoColor=white" alt="X" />
   </a>
   <a href="mailto:serhatyvz38@gmail.com">
-    <img src="https://img.shields.io/badge/Email-serhatyvz38%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email" />
+    <img src="https://img.shields.io/badge/Email-Send%20Mail-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email" />
   </a>
-  <img src="https://img.shields.io/badge/Discord-bosadam-5865F2?style=flat-square&logo=discord&logoColor=white" alt="Discord" />
 </p>
 
-![Contact](https://serhatvs.vercel.app/api/contact?v=contact-card-2)
+<table>
+  <tr>
+    <td width="50%">
+      <a href="https://www.linkedin.com/in/serhat-yavuz-70593b370/">
+        <img src="https://serhatvs.vercel.app/api/contact-card?channel=linkedin&v=contact-tile-1" alt="LinkedIn" />
+      </a>
+    </td>
+    <td width="50%">
+      <a href="https://x.com/Arkhino_DEV">
+        <img src="https://serhatvs.vercel.app/api/contact-card?channel=x&v=contact-tile-1" alt="X" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <a href="mailto:serhatyvz38@gmail.com">
+        <img src="https://serhatvs.vercel.app/api/contact-card?channel=email&v=contact-tile-1" alt="Email" />
+      </a>
+    </td>
+    <td width="50%">
+      <img src="https://serhatvs.vercel.app/api/contact-card?channel=discord&v=contact-tile-1" alt="Discord" />
+    </td>
+  </tr>
+</table>
