@@ -17,6 +17,14 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ---
 
+## 🛠 Currently Building
+
+- Voice-first multi-agent workflows with routing, memory, and tool execution
+- ESP32 edge-to-cloud systems for real-time sensing and control
+- Self-hosted developer tooling, live SVG cards, and profile automation
+
+---
+
 ## 🧩 Core Stack
 
 ![Python](https://img.shields.io/badge/Python-7A3F91?logo=python&logoColor=white)
