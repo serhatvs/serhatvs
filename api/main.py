@@ -298,9 +298,9 @@ def load_streak_data(user: str) -> dict[str, object]:
 
 def static_spotify_data() -> dict[str, object]:
     return {
-        "title": "Serhat on Spotify",
-        "subtitle": "Profile playlist lane",
-        "album": "Open the full profile",
+        "title": "Arkhino DEV",
+        "subtitle": "Curated coding sessions and late-night build loops",
+        "album": "Open the Spotify profile for playlists and listening history",
         "url": "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy",
         "status": "Static profile card",
     }
@@ -482,6 +482,7 @@ def spotify_card(data: dict[str, object]) -> str:
       .p {{ font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
       .m {{ font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
       .k {{ font: 700 16px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .chip {{ font: 700 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: 1px; }}
     </style>
   </defs>
 
@@ -491,19 +492,28 @@ def spotify_card(data: dict[str, object]) -> str:
     <rect x="22" y="22" width="856" height="176" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.25"/>
   </g>
 
-  <circle cx="78" cy="74" r="22" fill="{PALETTE['gold']}" opacity="0.95"/>
-  <rect x="72" y="63" width="7" height="22" rx="3.5" fill="{PALETTE['bg']}"/>
-  <path d="M86 63c10 1 16 8 16 18s-6 17-16 18" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
+  <rect x="52" y="42" width="150" height="136" rx="20" fill="{PALETTE['bg']}" opacity="0.72"/>
+  <circle cx="127" cy="89" r="34" fill="{PALETTE['gold']}" opacity="0.98"/>
+  <path d="M110 78c19-4 37-2 51 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M114 90c15-2 27 0 38 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <path d="M118 102c9-1 18 1 26 5" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
+  <text x="127" y="142" text-anchor="middle" class="chip" fill="{PALETTE['text']}">SPOTIFY</text>
 
-  <text x="118" y="58" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
-  <text x="118" y="88" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
-  <text x="118" y="116" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
-  <text x="118" y="142" class="m" fill="{PALETTE['muted']}">Album: {escape(str(data['album']))}</text>
+  <text x="230" y="58" class="m" fill="{PALETTE['topaz']}">Static Spotify Profile</text>
+  <text x="230" y="90" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
+  <text x="230" y="118" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
+  <text x="230" y="146" class="m" fill="{PALETTE['muted']}">{escape(str(data['album']))}</text>
 
-  <rect x="64" y="166" width="772" height="10" rx="5" fill="{PALETTE['card']}" opacity="0.6"/>
-  <rect x="64" y="166" width="772" height="10" rx="5" fill="{PALETTE['gold']}"/>
-  <text x="64" y="192" class="m" fill="{PALETTE['muted']}">Open profile on Spotify</text>
-  <text x="836" y="192" text-anchor="end" class="k" fill="{PALETTE['text']}">{escape(str(data['status']))}</text>
+  <rect x="230" y="162" width="160" height="24" rx="12" fill="{PALETTE['gold']}" opacity="0.95"/>
+  <text x="310" y="178" text-anchor="middle" class="chip" fill="{PALETTE['bg']}">OPEN PROFILE</text>
+
+  <rect x="700" y="50" width="134" height="56" rx="16" fill="{PALETTE['bg']}" opacity="0.72"/>
+  <text x="717" y="72" class="m" fill="{PALETTE['muted']}">Platform</text>
+  <text x="717" y="94" class="k" fill="{PALETTE['text']}">Spotify</text>
+
+  <rect x="700" y="118" width="134" height="56" rx="16" fill="{PALETTE['bg']}" opacity="0.72"/>
+  <text x="717" y="140" class="m" fill="{PALETTE['muted']}">Card Type</text>
+  <text x="717" y="162" class="k" fill="{PALETTE['text']}">{escape(str(data['status']))}</text>
 </svg>"""
 
 
