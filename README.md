@@ -89,6 +89,6 @@ A3 --> Out
 
 ## 📫 Connect
 
-LinkedIn: (add)
+LinkedIn: https://www.linkedin.com/in/serhat-yavuz-70593b370/
 
 X: (add)
