@@ -33,25 +33,25 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 <table>
   <tr>
     <td width="50%">
-      <a href="https://github.com/serhatvs/JARVIS">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=JARVIS&v=featured-cards-1" alt="JARVIS" />
+      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&slot=0">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&slot=0&v=featured-auto-1" alt="Featured project 1" />
       </a>
     </td>
     <td width="50%">
-      <a href="https://github.com/serhatvs/Collective-MindGraph">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=Collective-MindGraph&v=featured-cards-1" alt="Collective-MindGraph" />
+      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&slot=1">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&slot=1&v=featured-auto-1" alt="Featured project 2" />
       </a>
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <a href="https://github.com/serhatvs/CrowdPulse-city">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=CrowdPulse-city&v=featured-cards-1" alt="CrowdPulse-city" />
+      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&slot=2">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&slot=2&v=featured-auto-1" alt="Featured project 3" />
       </a>
     </td>
     <td width="50%">
-      <a href="https://github.com/serhatvs/dsugar-farm">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=dsugar-farm&v=featured-cards-1" alt="dsugar-farm" />
+      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&slot=3">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&slot=3&v=featured-auto-1" alt="Featured project 4" />
       </a>
     </td>
   </tr>

@@ -7,6 +7,7 @@ from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 from fastapi import FastAPI, Response
+from fastapi.responses import RedirectResponse
 
 
 app = FastAPI()
@@ -40,6 +41,7 @@ FEATURED_FALLBACKS = {
         "language": "TypeScript",
     },
 }
+FEATURED_FALLBACK_ORDER = ["JARVIS", "Collective-MindGraph", "CrowdPulse-city", "dsugar-farm"]
 
 
 def github_headers() -> dict[str, str]:
@@ -367,6 +369,7 @@ def default_featured_repo(repo: str) -> dict[str, str | int]:
         "stars": 0,
         "branch": "main",
         "pushed": "N/A",
+        "html_url": f"https://github.com/serhatvs/{repo}",
     }
 
 
@@ -382,6 +385,7 @@ def fetch_featured_repo(user: str, repo: str) -> dict[str, str | int]:
         "stars": int(payload.get("stargazers_count", 0)),
         "branch": str(payload.get("default_branch") or "main"),
         "pushed": format_github_date(payload.get("pushed_at")),
+        "html_url": str(payload.get("html_url") or f"https://github.com/{user}/{repo}"),
     }
 
 
@@ -390,6 +394,64 @@ def load_featured_repo(user: str, repo: str) -> dict[str, str | int]:
         return fetch_featured_repo(user, repo)
     except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
         return default_featured_repo(repo)
+
+
+def featured_repo_summary(repo: dict) -> dict[str, str | int]:
+    name = str(repo.get("name") or "project")
+    fallback = FEATURED_FALLBACKS.get(name, {})
+    return {
+        "name": name,
+        "description": str(repo.get("description") or fallback.get("description") or "Featured project"),
+        "language": str(repo.get("language") or fallback.get("language") or "Mixed"),
+        "stars": int(repo.get("stargazers_count", 0)),
+        "branch": str(repo.get("default_branch") or "main"),
+        "pushed": format_github_date(repo.get("pushed_at")),
+        "html_url": str(repo.get("html_url") or f"https://github.com/serhatvs/{name}"),
+    }
+
+
+def rank_featured_repos(user: str, count: int = 4) -> list[dict[str, str | int]]:
+    repos = fetch_repos(user)
+    candidates = [
+        repo
+        for repo in repos
+        if not repo.get("fork")
+        and not repo.get("archived")
+        and not repo.get("disabled")
+        and str(repo.get("name")) != user
+    ]
+    ranked = sorted(
+        candidates,
+        key=lambda repo: (
+            int(repo.get("stargazers_count", 0)),
+            str(repo.get("pushed_at") or ""),
+            int(repo.get("size", 0)),
+        ),
+        reverse=True,
+    )
+    return [featured_repo_summary(repo) for repo in ranked[:count]]
+
+
+def fallback_featured_repos(count: int = 4) -> list[dict[str, str | int]]:
+    return [default_featured_repo(name) for name in FEATURED_FALLBACK_ORDER[:count]]
+
+
+def load_ranked_featured_repos(user: str, count: int = 4) -> list[dict[str, str | int]]:
+    try:
+        featured = rank_featured_repos(user, count)
+        if featured:
+            return featured
+    except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
+        pass
+    return fallback_featured_repos(count)
+
+
+def featured_repo_for_request(user: str, repo: str | None, slot: int) -> dict[str, str | int]:
+    if repo:
+        return load_featured_repo(user, repo)
+    featured = load_ranked_featured_repos(user)
+    safe_slot = min(max(slot, 0), len(featured) - 1)
+    return featured[safe_slot]
 
 
 def svg_card(user: str, stats: dict[str, int | str]) -> str:
@@ -717,10 +779,16 @@ def spotify() -> Response:
 
 
 @app.get("/api/repo-card")
-def repo_card(user: str = "serhatvs", repo: str = "JARVIS") -> Response:
-    svg = featured_repo_card(user, load_featured_repo(user, repo))
+def repo_card(user: str = "serhatvs", repo: str | None = None, slot: int = 0) -> Response:
+    svg = featured_repo_card(user, featured_repo_for_request(user, repo, slot))
     return Response(
         content=svg,
         media_type="image/svg+xml",
         headers={"Cache-Control": "public, max-age=1800"},
     )
+
+
+@app.get("/api/repo-link")
+def repo_link(user: str = "serhatvs", repo: str | None = None, slot: int = 0) -> RedirectResponse:
+    featured = featured_repo_for_request(user, repo, slot)
+    return RedirectResponse(url=str(featured["html_url"]), status_code=307)
