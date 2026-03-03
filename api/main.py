@@ -492,25 +492,24 @@ def spotify_card(data: dict[str, object]) -> str:
     <rect x="22" y="22" width="856" height="176" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.25"/>
   </g>
 
-  <rect x="52" y="42" width="150" height="136" rx="20" fill="{PALETTE['bg']}" opacity="0.72"/>
-  <circle cx="127" cy="89" r="34" fill="{PALETTE['gold']}" opacity="0.98"/>
-  <path d="M102 80c18-5 39-3 52 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
-  <path d="M108 91c14-3 29-1 40 5" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
-  <path d="M114 102c10-2 20-1 28 4" fill="none" stroke="{PALETTE['bg']}" stroke-width="5" stroke-linecap="round"/>
-  <rect x="92" y="69" width="9" height="34" rx="4.5" fill="{PALETTE['bg']}"/>
-  <text x="127" y="142" text-anchor="middle" class="chip" fill="{PALETTE['text']}">SPOTIFY</text>
+  <circle cx="104" cy="110" r="44" fill="{PALETTE['gold']}" opacity="0.98"/>
+  <path d="M82 95c20-6 43-4 58 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
+  <path d="M88 109c16-4 32-2 45 4" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
+  <path d="M94 123c11-2 21-1 30 3" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="77" cy="95" r="5" fill="{PALETTE['bg']}"/>
 
-  <text x="230" y="58" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
-  <text x="230" y="90" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
-  <text x="230" y="118" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
-  <text x="230" y="146" class="m" fill="{PALETTE['muted']}">{escape(str(data['album']))}</text>
+  <text x="178" y="66" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
+  <text x="178" y="102" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
+  <text x="178" y="132" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
+  <text x="178" y="160" class="m" fill="{PALETTE['muted']}">{escape(str(data['album']))}</text>
 
-  <rect x="230" y="162" width="160" height="24" rx="12" fill="{PALETTE['gold']}" opacity="0.95"/>
-  <text x="310" y="178" text-anchor="middle" class="chip" fill="{PALETTE['bg']}">OPEN PROFILE</text>
+  <rect x="178" y="174" width="174" height="28" rx="14" fill="{PALETTE['gold']}" opacity="0.96"/>
+  <text x="265" y="192" text-anchor="middle" class="chip" fill="{PALETTE['bg']}">OPEN SPOTIFY PROFILE</text>
 
-  <rect x="684" y="64" width="150" height="76" rx="18" fill="{PALETTE['bg']}" opacity="0.72"/>
-  <text x="702" y="92" class="m" fill="{PALETTE['muted']}">Platform</text>
-  <text x="702" y="118" class="k" fill="{PALETTE['text']}">Spotify</text>
+  <text x="820" y="66" text-anchor="end" class="m" fill="{PALETTE['muted']}">Platform</text>
+  <text x="820" y="100" text-anchor="end" class="k" fill="{PALETTE['text']}">Spotify</text>
+  <text x="820" y="130" text-anchor="end" class="m" fill="{PALETTE['muted']}">Mode</text>
+  <text x="820" y="160" text-anchor="end" class="k" fill="{PALETTE['text']}">Static profile</text>
 </svg>"""
 
 
