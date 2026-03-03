@@ -709,6 +709,68 @@ def spotify_card() -> str:
 </svg>"""
 
 
+def contact_card() -> str:
+    return """<svg xmlns="http://www.w3.org/2000/svg" width="900" height="240" viewBox="0 0 900 240">
+  <defs>
+    <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2B0D3E"/>
+      <stop offset="55%" stop-color="#7A3F91"/>
+      <stop offset="100%" stop-color="#E6A520"/>
+    </linearGradient>
+    <filter id="blur5" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feBlend in="SourceGraphic" in2="b" mode="screen"/>
+    </filter>
+    <style>
+      .h { font: 700 30px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .p { font: 600 17px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .m { font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .k { font: 700 16px system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+      .chip { font: 700 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: .9px; }
+    </style>
+  </defs>
+
+  <rect width="900" height="240" rx="22" fill="url(#g5)"/>
+  <g filter="url(#blur5)">
+    <rect x="22" y="22" width="856" height="196" rx="18" fill="#2B2E33" opacity="0.55"/>
+    <rect x="22" y="22" width="856" height="196" rx="18" fill="none" stroke="#C1C4C8" opacity="0.25"/>
+  </g>
+
+  <text x="44" y="62" class="h" fill="#F5F6F7">Contact</text>
+  <text x="44" y="88" class="p" fill="#FFD77A">Available for collaboration, product builds, and technical conversations</text>
+  <text x="44" y="112" class="m" fill="#C1C4C8">Edge AI, speech systems, embedded workflows, and multi-agent tooling</text>
+
+  <rect x="44" y="134" width="372" height="34" rx="17" fill="#2B0D3E" opacity="0.84"/>
+  <circle cx="71" cy="151" r="12" fill="#0A66C2"/>
+  <text x="71" y="156" text-anchor="middle" class="chip" fill="#F5F6F7">in</text>
+  <text x="95" y="145" class="m" fill="#C1C4C8">LinkedIn</text>
+  <text x="95" y="159" class="k" fill="#F5F6F7">Serhat Yavuz</text>
+
+  <rect x="44" y="176" width="372" height="34" rx="17" fill="#2B0D3E" opacity="0.84"/>
+  <circle cx="71" cy="193" r="12" fill="#111111"/>
+  <text x="71" y="198" text-anchor="middle" class="chip" fill="#F5F6F7">X</text>
+  <text x="95" y="187" class="m" fill="#C1C4C8">X</text>
+  <text x="95" y="201" class="k" fill="#F5F6F7">@Arkhino_DEV</text>
+
+  <rect x="446" y="134" width="372" height="34" rx="17" fill="#2B0D3E" opacity="0.84"/>
+  <circle cx="473" cy="151" r="12" fill="#EA4335"/>
+  <text x="473" y="156" text-anchor="middle" class="chip" fill="#F5F6F7">@</text>
+  <text x="497" y="145" class="m" fill="#C1C4C8">Email</text>
+  <text x="497" y="159" class="k" fill="#F5F6F7">serhatyvz38@gmail.com</text>
+
+  <rect x="446" y="176" width="372" height="34" rx="17" fill="#2B0D3E" opacity="0.84"/>
+  <circle cx="473" cy="193" r="12" fill="#5865F2"/>
+  <text x="473" y="198" text-anchor="middle" class="chip" fill="#F5F6F7">D</text>
+  <text x="497" y="187" class="m" fill="#C1C4C8">Discord</text>
+  <text x="497" y="201" class="k" fill="#F5F6F7">bosadam</text>
+
+  <rect x="838" y="56" width="10" height="46" rx="5" fill="#C59DD9" opacity="0.48"/>
+  <rect x="854" y="42" width="10" height="60" rx="5" fill="#E6A520" opacity="0.95"/>
+  <rect x="838" y="110" width="10" height="30" rx="5" fill="#FFD77A" opacity="0.9"/>
+  <rect x="854" y="110" width="10" height="48" rx="5" fill="#C59DD9" opacity="0.62"/>
+</svg>"""
+
+
 @app.get("/api/stats")
 def stats(user: str = "serhatvs") -> Response:
     svg = svg_card(user, load_stats(user))
@@ -742,6 +804,16 @@ def streak(user: str = "serhatvs") -> Response:
 @app.get("/api/spotify")
 def spotify() -> Response:
     svg = spotify_card()
+    return Response(
+        content=svg,
+        media_type="image/svg+xml",
+        headers={"Cache-Control": "public, max-age=1800"},
+    )
+
+
+@app.get("/api/contact")
+def contact() -> Response:
+    svg = contact_card()
     return Response(
         content=svg,
         media_type="image/svg+xml",
