@@ -91,4 +91,4 @@ A3 --> Out
 
 LinkedIn: https://www.linkedin.com/in/serhat-yavuz-70593b370/
 
-X: (add)
+X: https://x.com/Arkhino_DEV
