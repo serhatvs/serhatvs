@@ -22,6 +22,24 @@ PALETTE = {
     "soft": "#C59DD9",
     "topaz": "#FFD77A",
 }
+FEATURED_FALLBACKS = {
+    "JARVIS": {
+        "description": "Multi-agent hybrid-planner personal AI assistant for voice-first workflows and system automation.",
+        "language": "Python",
+    },
+    "Collective-MindGraph": {
+        "description": "Docker-first distributed reasoning monorepo built around MQTT events and agent orchestration.",
+        "language": "Python",
+    },
+    "CrowdPulse-city": {
+        "description": "Accessibility hazard reporting platform with a React map UI, API layer, and risk indexing flow.",
+        "language": "TypeScript",
+    },
+    "dsugar-farm": {
+        "description": "Sui Move dApp with a React frontend for interactive on-chain farming gameplay.",
+        "language": "TypeScript",
+    },
+}
 
 
 def github_headers() -> dict[str, str]:
@@ -296,6 +314,84 @@ def load_streak_data(user: str) -> dict[str, object]:
         return default_streak_data()
 
 
+def format_github_date(value: str | None) -> str:
+    if not value:
+        return "N/A"
+    return datetime.fromisoformat(value.replace("Z", "+00:00")).strftime("%d %b %Y")
+
+
+def compact_number(value: int) -> str:
+    if value >= 1_000_000:
+        return f"{value / 1_000_000:.1f}M"
+    if value >= 1_000:
+        return f"{value / 1_000:.1f}k"
+    return str(value)
+
+
+def wrap_svg_text(text: str, max_chars: int = 44, max_lines: int = 2) -> list[str]:
+    words = text.replace("\n", " ").split()
+    if not words:
+        return ["No description available."]
+
+    lines: list[str] = []
+    current: list[str] = []
+
+    for word in words:
+        candidate = " ".join(current + [word]) if current else word
+        if len(candidate) <= max_chars:
+            current.append(word)
+            continue
+
+        if current:
+            lines.append(" ".join(current))
+        current = [word]
+        if len(lines) == max_lines - 1:
+            break
+
+    if len(lines) < max_lines and current:
+        lines.append(" ".join(current))
+
+    consumed_words = sum(len(line.split()) for line in lines)
+    if consumed_words < len(words):
+        lines[-1] = f"{lines[-1].rstrip('. ')}..."
+
+    return lines[:max_lines]
+
+
+def default_featured_repo(repo: str) -> dict[str, str | int]:
+    fallback = FEATURED_FALLBACKS.get(repo, {})
+    return {
+        "name": repo,
+        "description": fallback.get("description", "Featured project"),
+        "language": fallback.get("language", "Mixed"),
+        "stars": 0,
+        "branch": "main",
+        "pushed": "N/A",
+    }
+
+
+def fetch_featured_repo(user: str, repo: str) -> dict[str, str | int]:
+    payload, _ = github_get(f"/repos/{user}/{repo}")
+    if not isinstance(payload, dict):
+        raise ValueError("Invalid repository payload")
+
+    return {
+        "name": str(payload.get("name", repo)),
+        "description": str(payload.get("description") or "No description available."),
+        "language": str(payload.get("language") or "Mixed"),
+        "stars": int(payload.get("stargazers_count", 0)),
+        "branch": str(payload.get("default_branch") or "main"),
+        "pushed": format_github_date(payload.get("pushed_at")),
+    }
+
+
+def load_featured_repo(user: str, repo: str) -> dict[str, str | int]:
+    try:
+        return fetch_featured_repo(user, repo)
+    except (HTTPError, URLError, TimeoutError, ValueError, json.JSONDecodeError):
+        return default_featured_repo(repo)
+
+
 def svg_card(user: str, stats: dict[str, int | str]) -> str:
     safe_user = escape(user)
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="900" height="180" viewBox="0 0 900 180">
@@ -324,6 +420,72 @@ def svg_card(user: str, stats: dict[str, int | str]) -> str:
 
   <text x="44" y="72" class="h" fill="{PALETTE['text']}">{safe_user} - Custom Stats</text>
   <text x="44" y="104" class="p" fill="{PALETTE['topaz']}">Stars: {stats['stars']}   •   Repos: {stats['repos']}   •   Followers: {stats['followers']}</text>
+</svg>"""
+
+
+def featured_repo_card(user: str, repo: dict[str, str | int]) -> str:
+    description_lines = wrap_svg_text(str(repo["description"]))
+    safe_name = escape(str(repo["name"]))
+    safe_user = escape(user)
+    safe_language = escape(str(repo["language"]))
+    safe_branch = escape(str(repo["branch"]))
+    safe_pushed = escape(str(repo["pushed"]))
+    safe_lines = [escape(line) for line in description_lines]
+    stars = compact_number(int(repo["stars"]))
+
+    description_svg = "".join(
+        f'<text x="30" y="{94 + (index * 18)}" class="body" fill="{PALETTE["soft"]}">{line}</text>'
+        for index, line in enumerate(safe_lines)
+    )
+
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="430" height="210" viewBox="0 0 430 210">
+  <defs>
+    <linearGradient id="featuredGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="{PALETTE['bg']}"/>
+      <stop offset="55%" stop-color="{PALETTE['royal']}"/>
+      <stop offset="100%" stop-color="{PALETTE['gold']}"/>
+    </linearGradient>
+    <filter id="featuredBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feBlend in="SourceGraphic" in2="b" mode="screen"/>
+    </filter>
+    <style>
+      .eyebrow {{ font: 700 11px system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: 1px; }}
+      .title {{ font: 700 24px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .body {{ font: 600 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .meta {{ font: 600 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+      .stat-label {{ font: 700 10px system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: .8px; }}
+      .stat-value {{ font: 700 15px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
+    </style>
+  </defs>
+
+  <rect width="430" height="210" rx="22" fill="url(#featuredGradient)"/>
+  <g filter="url(#featuredBlur)">
+    <rect x="18" y="18" width="394" height="174" rx="18" fill="{PALETTE['card']}" opacity="0.58"/>
+    <rect x="18" y="18" width="394" height="174" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.24"/>
+  </g>
+
+  <text x="30" y="44" class="eyebrow" fill="{PALETTE['topaz']}">FEATURED REPO</text>
+  <text x="30" y="72" class="title" fill="{PALETTE['text']}">{safe_name}</text>
+  <text x="30" y="162" class="meta" fill="{PALETTE['muted']}">{safe_user}/{safe_name}</text>
+  {description_svg}
+
+  <rect x="30" y="174" width="74" height="22" rx="11" fill="{PALETTE['bg']}" opacity="0.88"/>
+  <text x="67" y="189" text-anchor="middle" class="meta" fill="{PALETTE['topaz']}">{safe_language}</text>
+
+  <rect x="110" y="174" width="74" height="22" rx="11" fill="{PALETTE['bg']}" opacity="0.88"/>
+  <text x="147" y="189" text-anchor="middle" class="meta" fill="{PALETTE['text']}">{stars} stars</text>
+
+  <rect x="290" y="30" width="108" height="150" rx="18" fill="{PALETTE['bg']}" opacity="0.78"/>
+  <rect x="304" y="48" width="12" height="94" rx="6" fill="{PALETTE['royal']}" opacity="0.32"/>
+  <rect x="326" y="70" width="12" height="72" rx="6" fill="{PALETTE['gold']}" opacity="0.95"/>
+  <rect x="348" y="58" width="12" height="84" rx="6" fill="{PALETTE['soft']}" opacity="0.54"/>
+  <rect x="370" y="86" width="12" height="56" rx="6" fill="{PALETTE['topaz']}" opacity="0.9"/>
+
+  <text x="304" y="160" class="stat-label" fill="{PALETTE['muted']}">BRANCH</text>
+  <text x="304" y="177" class="stat-value" fill="{PALETTE['text']}">{safe_branch}</text>
+  <text x="304" y="112" class="stat-label" fill="{PALETTE['muted']}">PUSHED</text>
+  <text x="304" y="129" class="stat-value" fill="{PALETTE['text']}">{safe_pushed}</text>
 </svg>"""
 
 
@@ -547,6 +709,16 @@ def streak(user: str = "serhatvs") -> Response:
 @app.get("/api/spotify")
 def spotify() -> Response:
     svg = spotify_card()
+    return Response(
+        content=svg,
+        media_type="image/svg+xml",
+        headers={"Cache-Control": "public, max-age=1800"},
+    )
+
+
+@app.get("/api/repo-card")
+def repo_card(user: str = "serhatvs", repo: str = "JARVIS") -> Response:
+    svg = featured_repo_card(user, load_featured_repo(user, repo))
     return Response(
         content=svg,
         media_type="image/svg+xml",

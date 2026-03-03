@@ -30,21 +30,32 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ## 🚀 Featured Projects
 
-- [JARVIS](https://github.com/serhatvs/JARVIS)  
-  Multi-agent hybrid-planner personal AI assistant focused on code writing, system automation, reflection, memory, and voice-first control.  
-  `Python` `Multi-Agent` `Voice`
-
-- [Collective-MindGraph](https://github.com/serhatvs/Collective-MindGraph)  
-  Docker-first distributed reasoning monorepo built around MQTT events, Postgres-backed state, isolated Python agents, and a FastAPI dashboard.  
-  `Python` `Docker` `MQTT` `Postgres`
-
-- [CrowdPulse-city](https://github.com/serhatvs/CrowdPulse-city)  
-  Accessibility hazard reporting platform with an Express API, React/Vite map UI, contract layer, and risk heatmap indexing.  
-  `TypeScript` `React` `Express` `Web3`
-
-- [dsugar-farm](https://github.com/serhatvs/dsugar-farm)  
-  Sui Move dApp that combines smart contracts with a React TypeScript frontend for interactive farming gameplay.  
-  `Move` `TypeScript` `React` `Sui`
+<table>
+  <tr>
+    <td width="50%">
+      <a href="https://github.com/serhatvs/JARVIS">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=JARVIS&v=featured-cards-1" alt="JARVIS" />
+      </a>
+    </td>
+    <td width="50%">
+      <a href="https://github.com/serhatvs/Collective-MindGraph">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=Collective-MindGraph&v=featured-cards-1" alt="Collective-MindGraph" />
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <a href="https://github.com/serhatvs/CrowdPulse-city">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=CrowdPulse-city&v=featured-cards-1" alt="CrowdPulse-city" />
+      </a>
+    </td>
+    <td width="50%">
+      <a href="https://github.com/serhatvs/dsugar-farm">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=dsugar-farm&v=featured-cards-1" alt="dsugar-farm" />
+      </a>
+    </td>
+  </tr>
+</table>
 
 ---
 
