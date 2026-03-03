@@ -50,7 +50,7 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ## 🐍 Contribution Flow (Custom gold/purple)
 
-![Snake](https://raw.githubusercontent.com/serhatvs/serhatvs/output/github-contribution-grid-snake-royal-imperial.svg)
+![Snake](https://raw.githubusercontent.com/serhatvs/serhatvs/refs/heads/output/github-contribution-grid-snake-royal-imperial.svg)
 
 ---
 
