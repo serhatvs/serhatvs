@@ -299,8 +299,8 @@ def load_streak_data(user: str) -> dict[str, object]:
 def static_spotify_data() -> dict[str, object]:
     return {
         "title": "Arkhino DEV",
-        "subtitle": "Curated coding sessions and late-night build loops",
-        "album": "Open the Spotify profile for playlists and listening history",
+        "subtitle": "Coding sessions, late-night builds, and synth-heavy focus loops",
+        "album": "Static profile card with a direct jump to the Spotify page",
         "url": "https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy",
         "status": "Static profile card",
     }
@@ -481,7 +481,6 @@ def spotify_card(data: dict[str, object]) -> str:
       .h {{ font: 700 30px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
       .p {{ font: 600 18px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
       .m {{ font: 500 13px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
-      .k {{ font: 700 16px system-ui, -apple-system, Segoe UI, Roboto, Arial; }}
       .chip {{ font: 700 12px system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: 1px; }}
     </style>
   </defs>
@@ -492,24 +491,26 @@ def spotify_card(data: dict[str, object]) -> str:
     <rect x="22" y="22" width="856" height="176" rx="18" fill="none" stroke="{PALETTE['muted']}" opacity="0.25"/>
   </g>
 
-  <circle cx="104" cy="110" r="44" fill="{PALETTE['gold']}" opacity="0.98"/>
-  <path d="M82 95c20-6 43-4 58 6" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
-  <path d="M88 109c16-4 32-2 45 4" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
-  <path d="M94 123c11-2 21-1 30 3" fill="none" stroke="{PALETTE['bg']}" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="77" cy="95" r="5" fill="{PALETTE['bg']}"/>
+  <rect x="54" y="48" width="140" height="124" rx="24" fill="{PALETTE['bg']}" opacity="0.82"/>
+  <circle cx="124" cy="103" r="38" fill="{PALETTE['gold']}" opacity="0.98"/>
+  <path d="M104 89c18-5 37-3 50 5" fill="none" stroke="{PALETTE['bg']}" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M109 101c14-3 29-2 40 4" fill="none" stroke="{PALETTE['bg']}" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M114 113c10-2 20-1 28 3" fill="none" stroke="{PALETTE['bg']}" stroke-width="5.5" stroke-linecap="round"/>
+  <text x="124" y="154" text-anchor="middle" class="chip" fill="{PALETTE['text']}">SPOTIFY</text>
 
-  <text x="178" y="66" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
-  <text x="178" y="102" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
-  <text x="178" y="132" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
-  <text x="178" y="160" class="m" fill="{PALETTE['muted']}">{escape(str(data['album']))}</text>
+  <text x="228" y="64" class="m" fill="{PALETTE['topaz']}">Spotify Profile</text>
+  <text x="228" y="98" class="h" fill="{PALETTE['text']}">{escape(str(data['title']))}</text>
+  <text x="228" y="128" class="p" fill="{PALETTE['soft']}">{escape(str(data['subtitle']))}</text>
+  <text x="228" y="156" class="m" fill="{PALETTE['muted']}">{escape(str(data['album']))}</text>
 
-  <rect x="178" y="174" width="174" height="28" rx="14" fill="{PALETTE['gold']}" opacity="0.96"/>
-  <text x="265" y="192" text-anchor="middle" class="chip" fill="{PALETTE['bg']}">OPEN SPOTIFY PROFILE</text>
+  <rect x="228" y="170" width="196" height="30" rx="15" fill="{PALETTE['gold']}" opacity="0.96"/>
+  <text x="326" y="189" text-anchor="middle" class="chip" fill="{PALETTE['bg']}">OPEN ON SPOTIFY</text>
 
-  <text x="820" y="66" text-anchor="end" class="m" fill="{PALETTE['muted']}">Platform</text>
-  <text x="820" y="100" text-anchor="end" class="k" fill="{PALETTE['text']}">Spotify</text>
-  <text x="820" y="130" text-anchor="end" class="m" fill="{PALETTE['muted']}">Mode</text>
-  <text x="820" y="160" text-anchor="end" class="k" fill="{PALETTE['text']}">Static profile</text>
+  <rect x="706" y="98" width="16" height="60" rx="8" fill="{PALETTE['soft']}" opacity="0.55"/>
+  <rect x="734" y="82" width="16" height="76" rx="8" fill="{PALETTE['gold']}" opacity="0.95"/>
+  <rect x="762" y="110" width="16" height="48" rx="8" fill="{PALETTE['soft']}" opacity="0.45"/>
+  <rect x="790" y="70" width="16" height="88" rx="8" fill="{PALETTE['gold']}" opacity="0.95"/>
+  <rect x="818" y="92" width="16" height="66" rx="8" fill="{PALETTE['soft']}" opacity="0.55"/>
 </svg>"""
 
 
