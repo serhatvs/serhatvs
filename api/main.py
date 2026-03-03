@@ -736,33 +736,31 @@ def contact_card() -> str:
     <rect x="22" y="22" width="856" height="196" rx="18" fill="none" stroke="#C1C4C8" opacity="0.25"/>
   </g>
 
-  <text x="44" y="62" class="h" fill="#F5F6F7">Contact</text>
-  <text x="44" y="88" class="p" fill="#FFD77A">Available for collaboration, product builds, and technical conversations</text>
-  <text x="44" y="112" class="m" fill="#C1C4C8">Edge AI, speech systems, embedded workflows, and multi-agent tooling</text>
+  <text x="44" y="74" class="h" fill="#F5F6F7">Contact</text>
 
-  <rect x="44" y="134" width="372" height="34" rx="17" fill="#2B0D3E" opacity="0.84"/>
-  <circle cx="71" cy="151" r="12" fill="#0A66C2"/>
-  <text x="71" y="156" text-anchor="middle" class="chip" fill="#F5F6F7">in</text>
-  <text x="95" y="145" class="m" fill="#C1C4C8">LinkedIn</text>
-  <text x="95" y="159" class="k" fill="#F5F6F7">Serhat Yavuz</text>
+  <rect x="44" y="104" width="372" height="42" rx="21" fill="#2B0D3E" opacity="0.84"/>
+  <circle cx="75" cy="125" r="14" fill="#0A66C2"/>
+  <text x="75" y="130" text-anchor="middle" class="chip" fill="#F5F6F7">in</text>
+  <text x="103" y="119" class="m" fill="#C1C4C8">LinkedIn</text>
+  <text x="103" y="134" class="k" fill="#F5F6F7">Serhat Yavuz</text>
 
-  <rect x="44" y="176" width="372" height="34" rx="17" fill="#2B0D3E" opacity="0.84"/>
-  <circle cx="71" cy="193" r="12" fill="#111111"/>
-  <text x="71" y="198" text-anchor="middle" class="chip" fill="#F5F6F7">X</text>
-  <text x="95" y="187" class="m" fill="#C1C4C8">X</text>
-  <text x="95" y="201" class="k" fill="#F5F6F7">@Arkhino_DEV</text>
+  <rect x="44" y="158" width="372" height="42" rx="21" fill="#2B0D3E" opacity="0.84"/>
+  <circle cx="75" cy="179" r="14" fill="#111111"/>
+  <text x="75" y="184" text-anchor="middle" class="chip" fill="#F5F6F7">X</text>
+  <text x="103" y="173" class="m" fill="#C1C4C8">X</text>
+  <text x="103" y="188" class="k" fill="#F5F6F7">@Arkhino_DEV</text>
 
-  <rect x="446" y="134" width="372" height="34" rx="17" fill="#2B0D3E" opacity="0.84"/>
-  <circle cx="473" cy="151" r="12" fill="#EA4335"/>
-  <text x="473" y="156" text-anchor="middle" class="chip" fill="#F5F6F7">@</text>
-  <text x="497" y="145" class="m" fill="#C1C4C8">Email</text>
-  <text x="497" y="159" class="k" fill="#F5F6F7">serhatyvz38@gmail.com</text>
+  <rect x="446" y="104" width="372" height="42" rx="21" fill="#2B0D3E" opacity="0.84"/>
+  <circle cx="477" cy="125" r="14" fill="#EA4335"/>
+  <text x="477" y="130" text-anchor="middle" class="chip" fill="#F5F6F7">@</text>
+  <text x="505" y="119" class="m" fill="#C1C4C8">Email</text>
+  <text x="505" y="134" class="k" fill="#F5F6F7">serhatyvz38@gmail.com</text>
 
-  <rect x="446" y="176" width="372" height="34" rx="17" fill="#2B0D3E" opacity="0.84"/>
-  <circle cx="473" cy="193" r="12" fill="#5865F2"/>
-  <text x="473" y="198" text-anchor="middle" class="chip" fill="#F5F6F7">D</text>
-  <text x="497" y="187" class="m" fill="#C1C4C8">Discord</text>
-  <text x="497" y="201" class="k" fill="#F5F6F7">bosadam</text>
+  <rect x="446" y="158" width="372" height="42" rx="21" fill="#2B0D3E" opacity="0.84"/>
+  <circle cx="477" cy="179" r="14" fill="#5865F2"/>
+  <text x="477" y="184" text-anchor="middle" class="chip" fill="#F5F6F7">D</text>
+  <text x="505" y="173" class="m" fill="#C1C4C8">Discord</text>
+  <text x="505" y="188" class="k" fill="#F5F6F7">bosadam</text>
 
   <rect x="838" y="56" width="10" height="46" rx="5" fill="#C59DD9" opacity="0.48"/>
   <rect x="854" y="42" width="10" height="60" rx="5" fill="#E6A520" opacity="0.95"/>
