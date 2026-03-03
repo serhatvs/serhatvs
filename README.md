@@ -43,8 +43,6 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 
 ![Custom Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs)
 
-> Self-hosted on Vercel. Add `GITHUB_TOKEN` in Vercel or Render environment variables for live stars, repos, and followers.
-
 ---
 
 ## 📊 GitHub Intelligence (Backup cards)
