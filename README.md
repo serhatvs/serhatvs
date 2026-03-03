@@ -120,7 +120,7 @@ A3 --> Out
 
 ## 📫 Connect
 
-[![Contact](https://serhatvs.vercel.app/api/contact?v=contact-card-1)](mailto:serhatyvz38@gmail.com)
+[![Contact](https://serhatvs.vercel.app/api/contact?v=contact-card-2)](mailto:serhatyvz38@gmail.com)
 
 <p align="center">
   <a href="https://www.linkedin.com/in/serhat-yavuz-70593b370/">LinkedIn</a> •
