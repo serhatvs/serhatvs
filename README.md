@@ -33,25 +33,25 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
 <table>
   <tr>
     <td width="50%">
-      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&slot=0">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&slot=0&v=featured-auto-2" alt="Featured project 1" />
+      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=JARVIS">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=JARVIS&v=featured-fixed-1" alt="JARVIS" />
       </a>
     </td>
     <td width="50%">
-      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&slot=1">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&slot=1&v=featured-auto-2" alt="Featured project 2" />
+      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=Collective-MindGraph">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=Collective-MindGraph&v=featured-fixed-1" alt="Collective-MindGraph" />
       </a>
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&slot=2">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&slot=2&v=featured-auto-2" alt="Featured project 3" />
+      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=dijital-g-zl-k">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=dijital-g-zl-k&v=featured-fixed-1" alt="dijital-g-zl-k" />
       </a>
     </td>
     <td width="50%">
-      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&slot=3">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&slot=3&v=featured-auto-2" alt="Featured project 4" />
+      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=personal-site">
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=personal-site&v=featured-fixed-1" alt="personal-site" />
       </a>
     </td>
   </tr>
