@@ -120,6 +120,7 @@ A3 --> Out
 
 ## 📫 Connect
 
-LinkedIn: https://www.linkedin.com/in/serhat-yavuz-70593b370/
+Available for collaboration, product builds, and technical discussions around edge AI, speech systems, and agent tooling.
 
-X: https://x.com/Arkhino_DEV
+- LinkedIn: [Serhat Yavuz](https://www.linkedin.com/in/serhat-yavuz-70593b370/)
+- X: [@Arkhino_DEV](https://x.com/Arkhino_DEV)
