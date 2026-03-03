@@ -51,24 +51,24 @@ Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
   <tr>
     <td width="50%">
       <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=JARVIS">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=JARVIS&v=featured-fixed-1" alt="JARVIS" />
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=JARVIS&v=featured-fixed-2" alt="JARVIS" />
       </a>
     </td>
     <td width="50%">
       <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=Collective-MindGraph">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=Collective-MindGraph&v=featured-fixed-1" alt="Collective-MindGraph" />
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=Collective-MindGraph&v=featured-fixed-2" alt="Collective-MindGraph" />
       </a>
     </td>
   </tr>
   <tr>
     <td width="50%">
       <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=dijital-g-zl-k">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=dijital-g-zl-k&v=featured-fixed-1" alt="dijital-g-zl-k" />
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=dijital-g-zl-k&v=featured-fixed-2" alt="dijital-g-zl-k" />
       </a>
     </td>
     <td width="50%">
       <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=personal-site">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=personal-site&v=featured-fixed-1" alt="personal-site" />
+        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=personal-site&v=featured-fixed-2" alt="personal-site" />
       </a>
     </td>
   </tr>
