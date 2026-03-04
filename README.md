@@ -2,6 +2,10 @@
   <img src="assets/hero.svg" alt="hero" />
 </p>
 
+<p align="center">
+  <img src="assets/mist-surface.svg" alt="ambient surface" />
+</p>
+
 ---
 
 ## 👑 About
