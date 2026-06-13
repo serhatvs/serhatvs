@@ -1,156 +1,178 @@
+<h1 align="center">Serhat Yavuz</h1>
+
 <p align="center">
-  <img src="assets/hero.svg" alt="hero" />
+  Computer Engineering Student at Abdullah Gul University | Software Engineering | AI Systems | Distributed Systems
 </p>
 
 <p align="center">
-  <img src="assets/mist-surface.svg" alt="ambient surface" />
+  <a href="mailto:serhatyvz38@gmail.com">
+    <img src="https://img.shields.io/badge/Email-serhatyvz38%40gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+  <a href="https://www.linkedin.com/in/serhat-yavuz-70593b370/">
+    <img src="https://img.shields.io/badge/LinkedIn-Serhat%20Yavuz-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="https://github.com/serhatvs">
+    <img src="https://img.shields.io/badge/GitHub-serhatvs-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" />
+  </a>
+  <a href="https://x.com/Arkhino_DEV">
+    <img src="https://img.shields.io/badge/X-Arkhino_DEV-000000?style=flat-square&logo=x&logoColor=white" alt="X" />
+  </a>
 </p>
 
 ---
 
-## 👑 About
+## Introduction
 
-Building intelligent systems that connect:
+Hi, I am Serhat, a Computer Engineering student at Abdullah Gul University (AGU) building a foundation in software engineering, artificial intelligence systems, distributed systems, and developer tools.
 
-- 🛰 Edge Devices (ESP32)
-- 🎙 Real-Time Speech Pipelines
-- 🧠 LLM Routing Cores
-- 🤖 Autonomous Agent Networks
-
-Palette: **Royal Amethyst × Imperial Topaz × Platinum Mist**.
-
-**Experience / Focus:** Edge AI, speech systems, multi-agent orchestration, embedded workflows.
-
-**Pinned Achievement:** Building self-hosted GitHub profile systems with live SVG cards and automation.
+This profile is my developer hub: a place to track real projects, technical growth, research-oriented work, hackathon experience, and the systems I am building while preparing for software engineering and internship opportunities.
 
 ---
 
-## 🛠 Currently Building
+## About Me
 
-- Voice-first multi-agent workflows with routing, memory, and tool execution
-- ESP32 edge-to-cloud systems for real-time sensing and control
-- Self-hosted developer tooling, live SVG cards, and profile automation
+- Studying Computer Engineering at Abdullah Gul University.
+- Interested in building reliable software systems that combine clean engineering with practical AI capabilities.
+- Working across backend systems, AI tooling, automation, mobile applications, and university software projects.
+- Comfortable learning through project-based work, hackathons, research exploration, and iterative prototyping.
+- Currently improving my ability to design systems, document technical decisions, and ship maintainable code.
 
-**Open To:** internships, research collaborations, and engineering roles focused on AI systems, embedded software, and applied automation.
-
----
-
-## 🧩 Core Stack
-
-![Python](https://img.shields.io/badge/Python-7A3F91?logo=python&logoColor=white)
-![C++](https://img.shields.io/badge/C++-E6A520?logo=cplusplus&logoColor=black)
-![Java](https://img.shields.io/badge/Java-7A4A00?logo=openjdk&logoColor=white)
-![C](https://img.shields.io/badge/C-4B5EAA?logo=c&logoColor=white)
-![C#](https://img.shields.io/badge/C%23-6A3FA0?logo=csharp&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-C59DD9?logo=node.js&logoColor=black)
-![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
-![FastAPI](https://img.shields.io/badge/FastAPI-0F766E?logo=fastapi&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?logo=postgresql&logoColor=white)
-![MQTT](https://img.shields.io/badge/MQTT-5A2D82?logo=eclipsemosquitto&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2B2E33?logo=docker&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-7A4A00?logo=linux&logoColor=white)
-![ESP32](https://img.shields.io/badge/ESP32-2B0D3E?logo=espressif&logoColor=white)
+**Open to:** software engineering internships, AI systems projects, research-oriented collaborations, and developer tooling work.
 
 ---
 
-## 🚀 Featured Projects
+## Current Focus
 
-<table>
-  <tr>
-    <td width="50%">
-      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=JARVIS">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=JARVIS&v=featured-fixed-3" alt="JARVIS" />
-      </a>
-    </td>
-    <td width="50%">
-      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=Collective-MindGraph">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=Collective-MindGraph&v=featured-fixed-3" alt="Collective-MindGraph" />
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=dijital-g-zl-k">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=dijital-g-zl-k&v=featured-fixed-3" alt="dijital-g-zl-k" />
-      </a>
-    </td>
-    <td width="50%">
-      <a href="https://serhatvs.vercel.app/api/repo-link?user=serhatvs&repo=personal-site">
-        <img src="https://serhatvs.vercel.app/api/repo-card?user=serhatvs&repo=personal-site&v=featured-fixed-3" alt="personal-site" />
-      </a>
-    </td>
-  </tr>
-</table>
+- Designing AI-assisted workflows with memory, routing, and tool usage.
+- Building project documentation that explains architecture, decisions, and tradeoffs clearly.
+- Strengthening backend development skills with Python, TypeScript, SQL, and API design.
+- Learning distributed systems concepts through practical implementation and experiments.
+- Improving software engineering fundamentals: testing, version control, clean code, and system design.
 
 ---
 
-## 📊 GitHub Intelligence (Backup cards)
+## Featured Projects
 
-![Stats](https://serhatvs.vercel.app/api/stats?user=serhatvs&v=cards-clean-1)
-![Top Langs](https://serhatvs.vercel.app/api/top-langs?user=serhatvs&v=cards-clean-1)
-![Streak](https://serhatvs.vercel.app/api/streak?user=serhatvs&v=cards-clean-1)
+### Collective MindGraph
+
+Research-oriented project focused on collective knowledge structures, graph-based reasoning, and AI-assisted information organization.
+
+- **Focus areas:** AI systems, knowledge graphs, reasoning workflows, research prototypes.
+- **Tech:** Python, AI tooling, graph-based data structures.
+- **Status:** Active / evolving.
+- **Repository:** [Add repository link](https://github.com/serhatvs)
+
+### JARVIS
+
+Personal AI assistant project exploring voice-first interaction, task routing, automation, and agent-style workflows.
+
+- **Focus areas:** AI assistants, automation, speech interfaces, tool execution.
+- **Tech:** Python, JavaScript / TypeScript, APIs, automation tools.
+- **Status:** Active / experimental.
+- **Repository:** [Add repository link](https://github.com/serhatvs)
+
+### Attendance System
+
+University-oriented software project for managing attendance workflows and structured student/course records.
+
+- **Focus areas:** application logic, databases, user workflows, data management.
+- **Tech:** SQL, backend development, frontend or mobile components.
+- **Status:** In progress / university project.
+- **Repository:** [Add repository link](https://github.com/serhatvs)
+
+### University Projects
+
+Coursework and team projects developed while studying computer engineering.
+
+- **Focus areas:** algorithms, data structures, systems programming, application development.
+- **Tech:** Java, C, Python, SQL, Git.
+- **Examples:** [Add selected project names], [Add selected project names].
+- **Repository:** [Add repository collection link](https://github.com/serhatvs?tab=repositories)
 
 ---
 
-## 📈 Activity Network
+## Tech Stack
 
-![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=serhatvs&bg_color=2B0D3E&color=F5F6F7&line=7A3F91&point=E6A520)
+### Languages
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
+![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=openjdk&logoColor=white)
+![C](https://img.shields.io/badge/C-A8B9CC?style=flat-square&logo=c&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-336791?style=flat-square&logo=postgresql&logoColor=white)
+
+### Frameworks, Tools, and Platforms
+
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
+![VS Code](https://img.shields.io/badge/VS%20Code-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white)
+
+### Areas of Interest
+
+- Software engineering and backend systems
+- AI systems and agentic workflows
+- Distributed systems
+- Developer tools and automation
+- Mobile development with Flutter
+- Research-oriented engineering projects
 
 ---
 
-## 🎧 Spotify
+## Learning Archive
 
-[![Spotify](https://serhatvs.vercel.app/api/spotify?v=spotify-inline-title-6)](https://open.spotify.com/user/31dfdduerefgrltei75bsz5eogpy)
+This section tracks topics, experiments, and project notes I want to preserve over time.
+
+| Area | What I am learning | Evidence / Notes |
+| --- | --- | --- |
+| AI Systems | Tool use, memory, routing, evaluation | [Add notes or project link] |
+| Distributed Systems | Coordination, communication, fault tolerance | [Add notes or project link] |
+| Backend Engineering | APIs, databases, authentication, testing | [Add notes or project link] |
+| Systems Programming | C, memory, processes, low-level fundamentals | [Add notes or project link] |
+| Mobile Development | Flutter, app architecture, UI flows | [Add notes or project link] |
+| Research Practice | Reading papers, writing summaries, prototyping | [Add notes or project link] |
 
 ---
 
-## 🐍 Contribution Flow (Custom gold/purple)
+## Current Goals
 
-![Snake](https://raw.githubusercontent.com/serhatvs/serhatvs/refs/heads/output/github-contribution-grid-snake-royal-imperial.svg)
+- Build and document at least three polished portfolio projects with clear READMEs.
+- Improve test coverage and code quality in active repositories.
+- Publish project writeups explaining architecture, tradeoffs, and lessons learned.
+- Participate in hackathons and research-oriented projects with practical deliverables.
+- Prepare for software engineering internship applications with a stronger project portfolio.
 
 ---
 
-## 🧠 System Architecture
+## GitHub Statistics
 
-This flow maps how edge devices, speech interfaces, and task-specialized agents connect into a single decision pipeline.
+<p align="center">
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=serhatvs&show_icons=true&theme=default&hide_border=true" alt="Serhat's GitHub stats" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=serhatvs&layout=compact&theme=default&hide_border=true" alt="Serhat's most used languages" />
+</p>
 
-```mermaid
-graph TD
-Edge[ESP32 Edge Nodes] --> STT[Speech Layer]
-STT --> Router[LLM Routing Core]
-Router --> A1[Task Agent]
-Router --> A2[Code Agent]
-Router --> A3[Decision Agent]
-A1 --> Out[Structured Output]
-A2 --> Out
-A3 --> Out
-```
+<p align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com?user=serhatvs&theme=default&hide_border=true" alt="GitHub streak stats" />
+</p>
 
-## 📫 Connect
+<!-- Optional: Replace or remove stats cards if you prefer a fully static profile README. -->
 
-<table>
-  <tr>
-    <td width="50%">
-      <a href="https://www.linkedin.com/in/serhat-yavuz-70593b370/">
-        <img src="https://serhatvs.vercel.app/api/contact-card?channel=linkedin&v=contact-tile-1" alt="LinkedIn" />
-      </a>
-    </td>
-    <td width="50%">
-      <a href="https://x.com/Arkhino_DEV">
-        <img src="https://serhatvs.vercel.app/api/contact-card?channel=x&v=contact-tile-1" alt="X" />
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-      <a href="mailto:serhatyvz38@gmail.com">
-        <img src="https://serhatvs.vercel.app/api/contact-card?channel=email&v=contact-tile-1" alt="Email" />
-      </a>
-    </td>
-    <td width="50%">
-      <img src="https://serhatvs.vercel.app/api/contact-card?channel=discord&v=contact-tile-1" alt="Discord" />
-    </td>
-  </tr>
-</table>
+---
+
+## Contact Information
+
+- **Email:** [serhatyvz38@gmail.com](mailto:serhatyvz38@gmail.com)
+- **LinkedIn:** [linkedin.com/in/serhat-yavuz-70593b370](https://www.linkedin.com/in/serhat-yavuz-70593b370/)
+- **GitHub:** [github.com/serhatvs](https://github.com/serhatvs)
+- **X / Twitter:** [x.com/Arkhino_DEV](https://x.com/Arkhino_DEV)
+- **Portfolio / Website:** [Add portfolio link]
+
+---
+
+<p align="center">
+  Thanks for visiting. This profile is updated as my projects, research interests, and engineering experience grow.
+</p>
